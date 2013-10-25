@@ -1,0 +1,14 @@
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Exam.Models.dll.config
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Exam.Models.dll
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Exam.Models.pdb
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\EntityFramework.dll
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\EntityFramework.xml
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\obj\Debug\Exam.Models.csprojResolveAssemblyReference.cache
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\obj\Debug\Exam.Models.dll
+D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\Exam.Models\obj\Debug\Exam.Models.pdb
