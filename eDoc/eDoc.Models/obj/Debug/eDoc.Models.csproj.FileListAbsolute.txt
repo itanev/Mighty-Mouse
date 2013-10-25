@@ -24,3 +24,17 @@ D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\eDoc.Models\bin\Debug\Microsof
 D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\eDoc.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\eDoc.Models\obj\Debug\eDoc.Models.dll
 D:\others\hackfmi\ASP.NET-MVC-Project-Base-master\eDoc.Models\obj\Debug\eDoc.Models.pdb
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\eDoc.Models.dll.config
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\eDoc.Models.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\eDoc.Models.pdb
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\EntityFramework.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\EntityFramework.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\obj\Debug\eDoc.Models.csprojResolveAssemblyReference.cache
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\obj\Debug\eDoc.Models.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Models\obj\Debug\eDoc.Models.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eDoc.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -42,6 +43,11 @@ namespace eDoc.Data
         public void Dispose()
         {
             this.context.Dispose();
+        }
+
+        public IRepository<Models.Document> Documents
+        {
+            get { return this.GetRepository<Document>(); }
         }
     }
 }

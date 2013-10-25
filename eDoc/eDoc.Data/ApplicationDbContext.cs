@@ -11,6 +11,6 @@ namespace eDoc.Data
 {
     public class ApplicationDbContext : IdentityDbContextWithCustomUser<ApplicationUser>
     {
-
+        public IDbSet<Document> Documents { get; set; }
     }
 }
