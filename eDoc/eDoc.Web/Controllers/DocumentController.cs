@@ -13,6 +13,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using eDoc.Web.ViewModels;
+using Typesafe.Mailgun;
+using System.Net.Mail;
 
 
 namespace eDoc.Web.Controllers
@@ -86,7 +88,7 @@ namespace eDoc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string content, int type)
+        public ActionResult Create(string content, int type, string title)
         {
             if (ModelState.IsValid)
             {
@@ -100,10 +102,38 @@ namespace eDoc.Web.Controllers
                         Author = user,
                         Date = DateTime.Now,
                         Content = content,
-                        Status = this.Data.Statuses.All().FirstOrDefault(),
-                        Type = this.Data.DocumentTypes.All().FirstOrDefault(x => x.Id == type)
+                        Type = this.Data.DocumentTypes.GetById(type),
+                        Status = this.Data.Statuses.All().FirstOrDefault(s => s.Name.ToLower() == "pending"),
+                        PhoneCode = Utils.GetConfirmationCode("phone" + user.UserName, 8),
+                        EmailCode = Utils.GetConfirmationCode("email" + user.UserName, 8),
                     };
+                    // todo: send email
+                    string fromNumber;
+                    string accountSid;
+                    string authToken;
+                    Settings.GetSmsSettings(out fromNumber, out accountSid, out authToken);
+                    string mailgunAccount;
+                    string mailgunKey;
+                    string fromEmail;
+                    Settings.GetEmailSettings(out mailgunAccount, out mailgunKey, out fromEmail);
+                    var smsClient = new Twilio.TwilioRestClient(accountSid, authToken);
+                    smsClient.SendSmsMessage(fromNumber, user.PhoneNumber,
+                        @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
+                    // https://api.mailgun.net/v2
+                    // http://documentation.mailgun.com/quickstart.html#sending-messages
+
+                    var client = new MailgunClient(mailgunAccount, mailgunKey);
+
+                    var message = new System.Net.Mail.MailMessage(fromEmail, user.Email);
+                    message.Sender = new MailAddress(fromEmail);
+
+                    message.From = message.Sender;
+                    message.Subject = "MightyMouse Document Confirmation - " + title;
+
+                    message.Body = "Your confirmation code is " + docToAdd.EmailCode + ".";
+
+                    var result = client.SendMail(message);
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
                 }

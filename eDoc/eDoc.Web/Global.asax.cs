@@ -1,4 +1,5 @@
 ﻿using eDoc.Data;
+using eDoc.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,6 +24,29 @@ namespace eDoc.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, eDoc.Data.Migrations.Configuration>());
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
+            using (var context = new ApplicationDbContext())
+            {
+                // context.Database.Initialize(true);
+                if (context.Statuses.Count() == 0)
+                {
+                    context.Statuses.Add(new Status { Name = "Pending" });
+                }
+                 if (context.DocumentTypes.Count() == 0)
+                {
+                    foreach(var dt in new[]{
+                        new DocumentType { Name = "Application" },
+                        new DocumentType { Name = "Declaration" },
+                        new DocumentType { Name = "Other" }
+                    }){
+                    context.DocumentTypes.Add(dt);
+                    }
+                }
+                 context.SaveChanges();
+
+            }
+            Settings.Initialize();
+            //*/
         }
     }
 }
