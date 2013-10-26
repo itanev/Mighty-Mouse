@@ -54,5 +54,11 @@ namespace eDoc.Data
         {
             get { return this.GetRepository<ApplicationUser>(); }
         }
+
+
+        public IRepository<DocumentType> DocumentTypes
+        {
+            get { return this.GetRepository<DocumentType>(); }
+        }
     }
 }

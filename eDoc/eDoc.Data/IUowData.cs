@@ -12,6 +12,8 @@ namespace eDoc.Data
         IRepository<Document> Documents { get; }
 
         IRepository<ApplicationUser> Users { get; }
+
+        IRepository<DocumentType> DocumentTypes { get; }
         
         int SaveChanges();
     }

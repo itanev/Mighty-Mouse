@@ -218,3 +218,7 @@ C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Web\bin\Newtonsoft.Json.xml
 C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Web\obj\Debug\eDoc.Web.csprojResolveAssemblyReference.cache
 C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Web\obj\Debug\eDoc.Web.dll
 C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Web\obj\Debug\eDoc.Web.pdb
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\System.Web.Http.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\System.Net.Http.Formatting.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\System.Web.Http.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\System.Net.Http.Formatting.xml
