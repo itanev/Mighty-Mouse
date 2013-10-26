@@ -3,15 +3,15 @@
 
 var HttpRequester = (function () {
 
-    var makeRequest = function (url, type, data, success, error) {
+    var makeRequest = function (url, requestType, data, success, error) {
         
         if(data){
-            data = JSON.stringify(data);
+            data = JSON.stringify({type: data});
         }
 
         $.ajax({
             url: url,
-            type: type,
+            type: requestType,
             data: data,
             contentType: "application/json",
             success: function (data) {

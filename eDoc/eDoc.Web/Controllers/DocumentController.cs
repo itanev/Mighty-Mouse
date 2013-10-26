@@ -17,10 +17,6 @@ using eDoc.Web.ViewModels;
 
 namespace eDoc.Web.Controllers
 {
-    public class Test
-    {
-        public string Type { get; set; }
-    }
     public class DocumentController : BaseController
     {
 
@@ -65,8 +61,8 @@ namespace eDoc.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SelectType([System.Web.Http.FromBody]Test type)
+        [HttpGet]
+        public ActionResult SelectType(string type)
         {
             return PartialView("_" + type);
         }
