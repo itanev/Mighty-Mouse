@@ -1,4 +1,4 @@
-﻿@model eDoc.Models.Document
+﻿@model eDoc.Web.ViewModels.DocumentIndexVM
 
 @{
     ViewBag.Title = "Edit";
@@ -7,7 +7,8 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -15,14 +16,6 @@
         <legend>Document</legend>
 
         @Html.HiddenFor(model => model.Id)
-
-        <div class="control-group">
-            @Html.LabelFor(model => model.Date, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(model => model.Date)
-                @Html.ValidationMessageFor(model => model.Date, null, new { @class = "help-inline" })
-            </div>
-        </div>
 
         <div class="control-group">
             @Html.LabelFor(model => model.Content, new { @class = "control-label" })
@@ -33,17 +26,14 @@
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(model => model.AuthorId, new { @class = "control-label" })
-            <div class="controls">
-                @Html.EditorFor(model => model.AuthorId)
-                @Html.ValidationMessageFor(model => model.AuthorId, null, new { @class = "help-inline" })
-            </div>
-        </div>
-
-        <div class="control-group">
             @Html.LabelFor(model => model.Status, new { @class = "control-label" })
             <div class="controls">
-                @Html.EditorFor(model => model.Status)
+                <select id="document-statuses" name="status">
+                    @foreach (var item in ViewBag.Statuses)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.Status, null, new { @class = "help-inline" })
             </div>
         </div>
@@ -51,7 +41,12 @@
         <div class="control-group">
             @Html.LabelFor(model => model.Type, new { @class = "control-label" })
             <div class="controls">
-                @Html.EditorFor(model => model.Type)
+                <select id="document-types" name="type">
+                    @foreach (var item in ViewBag.DocumentTypes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
                 @Html.ValidationMessageFor(model => model.Type, null, new { @class = "help-inline" })
             </div>
         </div>

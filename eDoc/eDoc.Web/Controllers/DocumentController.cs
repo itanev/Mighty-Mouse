@@ -19,46 +19,57 @@ namespace eDoc.Web.Controllers
 {
     public class DocumentController : BaseController
     {
-
-        // GET: /User/
-        public ActionResult Index()
+        private HashSet<DocumentIndexVM> GetDocumentsAsVM(IQueryable<Document> documents)
         {
             var items = new HashSet<DocumentIndexVM>();
-
-            foreach (var item in this.Data.Documents.All())
+            foreach (var item in documents)
             {
                 items.Add(new DocumentIndexVM
                 {
                     Id = item.Id,
                     AuthorName = item.Author.UserName,
                     Date = item.Date,
-                    Status = Enum.GetName(typeof(Status), item.Status),
-                    Type = Enum.GetName(typeof(DocumentType), item.Type)
+                    Content = item.Content,
+                    Status = item.Status.Name,
+                    Type = item.Type.Name
                 });
             }
-            return View(items);
+
+            return items;
         }
 
-        // GET: /User/Details/5
+        private DocumentIndexVM GetDocumentAsVM(Document doc)
+        {
+            return new DocumentIndexVM()
+            {
+                Id = doc.Id,
+                Date = doc.Date,
+                Content = doc.Content,
+                AuthorName = doc.Author.UserName,
+                Status = doc.Status.Name,
+                Type = doc.Type.Name
+            };
+        }
+
+        public ActionResult Index()
+        {
+            return View(GetDocumentsAsVM(this.Data.Documents.All()));
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Document document = this.Data.Documents.GetById((int)id);
             if (document == null)
             {
                 return HttpNotFound();
             }
-            return View(document);
-        }
 
-        // GET: /User/Create
-        public ActionResult Create()
-        {
-            ViewBag.DocumentTypes = this.Data.DocumentTypes.All().ToList();
-            return View();
+            return View(GetDocumentAsVM(document));
         }
 
         [HttpGet]
@@ -67,9 +78,15 @@ namespace eDoc.Web.Controllers
             return PartialView("_" + type);
         }
 
+        public ActionResult Create()
+        {
+            ViewBag.DocumentTypes = this.Data.DocumentTypes.All().ToList();
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Document document)
+        public ActionResult Create(string content, int type)
         {
             if (ModelState.IsValid)
             {
@@ -82,9 +99,9 @@ namespace eDoc.Web.Controllers
                     {
                         Author = user,
                         Date = DateTime.Now,
-                        Content = document.Content,
-                        Status = Status.Pending,
-                        Type = document.Type
+                        Content = content,
+                        Status = this.Data.Statuses.All().FirstOrDefault(),
+                        Type = this.Data.DocumentTypes.All().FirstOrDefault(x => x.Id == type)
                     };
 
                     this.Data.Documents.Add(docToAdd);
@@ -92,54 +109,62 @@ namespace eDoc.Web.Controllers
                 }
             }
 
-            return View(document);
+            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
 
-        // GET: /User/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Document document = this.Data.Documents.GetById((int)id);
             if (document == null)
             {
                 return HttpNotFound();
             }
-            return View(document);
+
+            ViewBag.DocumentTypes = this.Data.DocumentTypes.All().ToList();
+            ViewBag.Statuses = this.Data.Statuses.All().ToList();
+
+            return View(GetDocumentAsVM(document));
         }
 
-        // POST: /User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Document document)
+        public ActionResult Edit(DocumentEditVM document)
         {
             if (ModelState.IsValid)
             {
-                this.Data.Documents.Update(document);
+                var currentDocument = this.Data.Documents.GetById(document.Id);
+                currentDocument.Content = document.Content;
+                currentDocument.Status = this.Data.Statuses.GetById(document.Status);
+                currentDocument.Type = this.Data.DocumentTypes.GetById(document.Type);
+                this.Data.Documents.Update(currentDocument);
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(document);
+
+            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
 
-        // GET: /User/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Document document = this.Data.Documents.GetById((int)id);
             if (document == null)
             {
                 return HttpNotFound();
             }
-            return View(document);
+
+            return View(GetDocumentAsVM(document));
         }
 
-        // POST: /User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -147,7 +172,7 @@ namespace eDoc.Web.Controllers
             Document document = this.Data.Documents.GetById((int)id);
             this.Data.Documents.Delete(document);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
     }
 }

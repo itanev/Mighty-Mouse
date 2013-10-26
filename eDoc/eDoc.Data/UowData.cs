@@ -60,5 +60,10 @@ namespace eDoc.Data
         {
             get { return this.GetRepository<DocumentType>(); }
         }
+
+        public IRepository<Status> Statuses
+        {
+            get { return this.GetRepository<Status>(); }
+        }
     }
 }

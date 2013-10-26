@@ -14,5 +14,6 @@ namespace eDoc.Data
         public IDbSet<Document> Documents { get; set; }
 
         public IDbSet<DocumentType> DocumentTypes { get; set; }
+        public IDbSet<Status> Statuses { get; set; }
     }
 }

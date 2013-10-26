@@ -23,9 +23,9 @@ namespace eDoc.Models
         public virtual ApplicationUser Author { get; set; }
 
         [Required]
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
 
         [Required]
-        public DocumentType Type { get; set; }
+        public virtual DocumentType Type { get; set; }
     }
 }
