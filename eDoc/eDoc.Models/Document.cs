@@ -11,16 +11,21 @@ namespace eDoc.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
+
         [Required]
         public string Content { get; set; }
-        [Required]
-        public int AuthorId { get; set; }
+
+        public string AuthorId { get; set; }
+
+        public virtual ApplicationUser Author { get; set; }
+
         [Required]
         public Status Status { get; set; }
+
         [Required]
         public DocumentType Type { get; set; }
-        public virtual ApplicationUser Author { get; set; }
     }
 }

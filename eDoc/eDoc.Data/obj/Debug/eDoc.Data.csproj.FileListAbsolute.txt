@@ -46,3 +46,19 @@ D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Data\bin\Debug\Microsoft.AspNet.Identity
 D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Data\obj\Debug\eDoc.Data.csprojResolveAssemblyReference.cache
 D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Data\obj\Debug\eDoc.Data.dll
 D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Data\obj\Debug\eDoc.Data.pdb
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\eDoc.Data.dll.config
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\eDoc.Data.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\eDoc.Data.pdb
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\eDoc.Models.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\EntityFramework.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\eDoc.Models.pdb
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\EntityFramework.xml
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\obj\Debug\eDoc.Data.csprojResolveAssemblyReference.cache
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\obj\Debug\eDoc.Data.dll
+C:\Users\Subo Rusev\Desktop\HackFmi\trunk\eDoc\eDoc.Data\obj\Debug\eDoc.Data.pdb

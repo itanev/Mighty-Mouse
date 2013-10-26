@@ -13,6 +13,9 @@ namespace eDoc.Models
         [Required]
         public string Email { get; set; }
 
+        //[Required]
+        //public int FacultyNumber { get; set; }
+
         private ICollection<Document> documents;
 
         public virtual ICollection<Document> Documents

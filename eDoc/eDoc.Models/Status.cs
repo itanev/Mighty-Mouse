@@ -7,8 +7,8 @@ namespace eDoc.Models
 {
     public enum Status
     {
+        Pending,
         Approved,
-        Declined,
-        Pending
+        Declined
     }
 }

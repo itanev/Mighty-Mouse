@@ -9,10 +9,10 @@ namespace eDoc.Data
 {
     public interface IUowData
     {
-        //IRepository<Laptop> Laptops { get; }
-
         IRepository<Document> Documents { get; }
 
+        IRepository<ApplicationUser> Users { get; }
+        
         int SaveChanges();
     }
 }
