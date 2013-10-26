@@ -1,0 +1,27 @@
+﻿@model eDoc.Web.ViewModels.DocumentEditVM
+
+@{
+    ViewBag.Title = "Answer";
+}
+
+<h2>Answer</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <section name="status">
+        @foreach (var status in ViewBag.Statuses)
+        {
+            <option value="@status.Id">@status.Name</option>
+        }
+    </section>
+
+    <p name="comment"></p>
+    
+    <div class="form-actions no-color">
+        <input type="submit" value="Ok" class="btn" />
+    </div>
+}
+

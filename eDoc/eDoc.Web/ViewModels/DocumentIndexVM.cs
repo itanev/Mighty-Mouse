@@ -18,5 +18,9 @@ namespace eDoc.Web.ViewModels
         public string Type { get; set; }
 
         public string Content { get; set; }
+
+        public bool EmailVarified { get; set; }
+
+        public bool GsmVarified { get; set; }
     }
 }

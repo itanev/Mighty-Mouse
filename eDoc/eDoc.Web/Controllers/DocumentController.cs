@@ -16,46 +16,24 @@ using eDoc.Web.ViewModels;
 using Typesafe.Mailgun;
 using System.Net.Mail;
 
-
 namespace eDoc.Web.Controllers
 {
     public class DocumentController : BaseController
     {
-        private HashSet<DocumentIndexVM> GetDocumentsAsVM(IQueryable<Document> documents)
-        {
-            var items = new HashSet<DocumentIndexVM>();
-            foreach (var item in documents)
-            {
-                items.Add(new DocumentIndexVM
-                {
-                    Id = item.Id,
-                    AuthorName = item.Author.UserName,
-                    Date = item.Date,
-                    Content = item.Content,
-                    Status = item.Status.Name,
-                    Type = item.Type.Name
-                });
-            }
-
-            return items;
-        }
-
-        private DocumentIndexVM GetDocumentAsVM(Document doc)
-        {
-            return new DocumentIndexVM()
-            {
-                Id = doc.Id,
-                Date = doc.Date,
-                Content = doc.Content,
-                AuthorName = doc.Author.UserName,
-                Status = doc.Status.Name,
-                Type = doc.Type.Name
-            };
-        }
-
         public ActionResult Index()
         {
             return View(GetDocumentsAsVM(this.Data.Documents.All()));
+        }
+
+        public ActionResult Pending()
+        {
+            var documents = this.Data.Documents.All().Where(x => x.EmailValidated && x.PhoneValidated);
+            return View(GetDocumentsAsVM(documents));
+        }
+
+        public ActionResult Answer()
+        {
+            return View();
         }
 
         public ActionResult Details(int? id)
@@ -140,6 +118,32 @@ namespace eDoc.Web.Controllers
             }
 
             return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+        }
+
+        [HttpPost]
+        public ActionResult EmailVerify(string code, int id)
+        {
+            var doc = this.Data.Documents.GetById(id);
+
+            if (doc.EmailCode == code)
+            {
+                doc.EmailValidated = true;
+            }
+
+            return View("Details", doc);
+        }
+
+        [HttpPost]
+        public ActionResult GsmVerify(string code, int id)
+        {
+            var doc = this.Data.Documents.GetById(id);
+
+            if (doc.PhoneCode == code)
+            {
+                doc.PhoneValidated = true;
+            }
+
+            return View("Details", doc);
         }
 
         public ActionResult Edit(int? id)

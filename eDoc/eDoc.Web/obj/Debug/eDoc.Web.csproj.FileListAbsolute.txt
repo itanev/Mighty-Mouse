@@ -299,3 +299,16 @@ C:\Users\Subo Rusev\Desktop\hackfmigh\Mighty-Mouse\eDoc\eDoc.Web\bin\Microsoft.O
 C:\Users\Subo Rusev\Desktop\hackfmigh\Mighty-Mouse\eDoc\eDoc.Web\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Subo Rusev\Desktop\hackfmigh\Mighty-Mouse\eDoc\eDoc.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Subo Rusev\Desktop\hackfmigh\Mighty-Mouse\eDoc\eDoc.Web\bin\Newtonsoft.Json.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\RestSharp.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Api.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Mvc.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Twiml.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Typesafe.Mailgun.dll
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\RestSharp.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Api.pdb
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Api.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Mvc.pdb
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Mvc.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Twiml.pdb
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Twilio.Twiml.xml
+D:\others\GitHub\Mighty-Mouse\eDoc\eDoc.Web\bin\Typesafe.Mailgun.xml

@@ -49,9 +49,51 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
 
+        <dt>
+            Verification
+        </dt>
+
+        <dd>
+            @Html.CheckBox("Email", Model.EmailVarified)
+            @Html.CheckBox("GSM", Model.GsmVarified)
+        </dd>
+
+        <dt>
+            Verify
+        </dt>
+
+        <dd>
+            @if (!Model.EmailVarified)
+            {
+                <label for="email">Email varification code: </label>
+                <input type="text" id="email" /> <button onclick="verifyEmail">Verify</button><br />
+            }
+
+            @if (!Model.GsmVarified)
+            {
+                <label for="gsm">GSM varification code: </label>
+                <input type="text" id="gsm" /> <button onclick="verifyGsm">Verify</button><br />
+            }
+        </dd>
+
     </dl>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section Scripts {
+    <script>
+        function verifyEmail() {
+            var emailCode = $("#email").val();
+            $.post('@Url.Action("EmailVerify", "Document", new { @id = Model.Id })' + "?code=" + emailCode);
+        }
+
+        function verifyEmail() {
+            var emailCode = $("#gsm").val();
+            $.post('@Url.Action("'GsmVerify", "Document", new { @id = Model.Id })' + "?code=" + gsmCode);
+        }
+
+    </script>
+}

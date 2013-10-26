@@ -175,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -190,10 +191,6 @@
     <Compile Include="ViewModels\DocumentIndexVM.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\eDoc.mdf" />
-    <Content Include="App_Data\eDoc_log.ldf">
-      <DependentUpon>eDoc.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -256,8 +253,11 @@
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Document\_Application.cshtml" />
     <Content Include="Views\Document\_Declaration.cshtml" />
+    <Content Include="Views\Document\Pending.cshtml" />
+    <Content Include="Views\Admin\Answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Libraries\" />
   </ItemGroup>
   <ItemGroup>
