@@ -54,8 +54,23 @@
         </dt>
 
         <dd>
-            @Html.CheckBox("Email", Model.EmailVarified)
-            @Html.CheckBox("GSM", Model.GsmVarified)
+            @if (!Model.EmailVarified)
+            {
+                <p>Email unverified</p>
+            }
+            else
+            {
+                <p>Email verified</p>
+            }
+
+            @if (!Model.GsmVarified)
+            {
+                <p>Gsm unverified</p>
+            }
+            else
+            {
+                <p>Gsm verified</p>
+            }
         </dd>
 
         <dt>

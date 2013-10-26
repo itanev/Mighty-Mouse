@@ -31,11 +31,6 @@ namespace eDoc.Web.Controllers
             return View(GetDocumentsAsVM(documents));
         }
 
-        public ActionResult Answer()
-        {
-            return View();
-        }
-
         public ActionResult Details(int? id)
         {
             if (id == null)

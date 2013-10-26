@@ -51,13 +51,27 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.CheckBox("Email", item.EmailVarified)
+                @if (item.EmailVarified)
+                {
+                    <p>verified</p>
+                }
+                else
+                {
+                    <p>unverified</p>
+                }
             </td>
             <td>
-                @Html.CheckBox("Gsm", item.GsmVarified)
+                @if (item.GsmVarified)
+                {
+                    <p>verified</p>
+                }
+                else
+                {
+                    <p>unverified</p>
+                }
             </td>
             <td>
-                @Html.Action("Answer", "Document", new { @id = item.Id });
+                <a href="/Admin/Answer/@item.Id">Answer</a>
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
