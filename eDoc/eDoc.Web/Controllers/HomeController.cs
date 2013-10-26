@@ -6,10 +6,16 @@ using System.Web.Mvc;
 
 namespace eDoc.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var user = this.Data.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+                return View(user);
+            }
+
             return View();
         }
 

@@ -18,7 +18,7 @@ namespace eDoc.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController() 
+        public AccountController()
         {
             IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new ApplicationDbContext()));
         }
@@ -30,8 +30,10 @@ namespace eDoc.Web.Controllers
 
         public AuthenticationIdentityManager IdentityManager { get; private set; }
 
-        private Microsoft.Owin.Security.IAuthenticationManager AuthenticationManager {
-            get {
+        private Microsoft.Owin.Security.IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
@@ -87,8 +89,12 @@ namespace eDoc.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Create a local login before signing in the user
-                var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email }; // add aditional user properties here!!
+                var user = new ApplicationUser() 
+                { 
+                    UserName = model.UserName, 
+                    Email = model.Email, 
+                    PhoneNumber = model.PhoneNumber 
+                };
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
@@ -146,7 +152,7 @@ namespace eDoc.Web.Controllers
             ViewBag.HasLocalPassword = hasLocalLogin;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasLocalLogin)
-            {               
+            {
                 if (ModelState.IsValid)
                 {
                     IdentityResult result = await IdentityManager.Passwords.ChangePasswordAsync(User.Identity.GetUserName(), model.OldPassword, model.NewPassword);
@@ -207,7 +213,7 @@ namespace eDoc.Web.Controllers
             ClaimsIdentity id = await IdentityManager.Authentication.GetExternalIdentityAsync(AuthenticationManager);
             // Sign in this external identity if its already linked
             IdentityResult result = await IdentityManager.Authentication.SignInExternalIdentityAsync(AuthenticationManager, id);
-            if (result.Success) 
+            if (result.Success)
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -219,7 +225,7 @@ namespace eDoc.Web.Controllers
                 {
                     return RedirectToLocal(returnUrl);
                 }
-                else 
+                else
                 {
                     return View("ExternalLoginFailure");
                 }
@@ -244,7 +250,7 @@ namespace eDoc.Web.Controllers
             {
                 return RedirectToAction("Manage");
             }
-            
+
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
@@ -300,8 +306,10 @@ namespace eDoc.Web.Controllers
             }).Result;
         }
 
-        protected override void Dispose(bool disposing) {
-            if (disposing && IdentityManager != null) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && IdentityManager != null)
+            {
                 IdentityManager.Dispose();
                 IdentityManager = null;
             }
@@ -309,8 +317,10 @@ namespace eDoc.Web.Controllers
         }
 
         #region Helpers
-        private void AddErrors(IdentityResult result) {
-            foreach (var error in result.Errors) {
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
                 ModelState.AddModelError("", error);
             }
         }

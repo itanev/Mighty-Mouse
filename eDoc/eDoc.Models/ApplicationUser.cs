@@ -13,8 +13,7 @@ namespace eDoc.Models
         [Required]
         public string Email { get; set; }
 
-        //[Required]
-        //public int FacultyNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         private ICollection<Document> documents;
 
