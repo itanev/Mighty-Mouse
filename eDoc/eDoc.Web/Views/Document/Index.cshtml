@@ -23,12 +23,24 @@
         <th>
             Тип
         </th>
+        @if(Settings.ValidateEmail)
+        {
         <th>
             Потвърдено чрез E-mail
         </th>
+        }
+        @if(Settings.ValidateSms)
+        {
         <th>
             Потвърденто чрез GSM
         </th>
+        }
+        @if(Settings.ValidateToken)
+        {
+        <th>
+            Потвърденто чрез Token
+        </th>
+        }
         @if (User.IsInRole("Admin"))
         {
             <th>
@@ -48,19 +60,19 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @if (item.Status.ToLower() == "pending")
+                @if (item.StatusId == 2)
                 {
                     <p class="alert alert-dismissable alert-warning">Обработване...</p>
                 }
-                else if (item.Status.ToLower() == "rejected")
+                else if (item.StatusId == 4)
                 {
                     <p class="alert alert-dismissable alert-danger">Отказана</p>
                 }
-                else if (item.Status.ToLower() == "unverified")
+                else if (item.StatusId == 1)
                 {
-                    <p class="alert alert-dismissable alert-warning">Невврифицирана</p>
+                    <p class="alert alert-dismissable alert-warning">Неврифицирана</p>
                 }
-                else if (item.Status.ToLower() == "approved")
+                else if (item.StatusId == 3)
                 {
                     <p class="alert alert-dismissable alert-success">Одобрена</p>
                 }
@@ -73,6 +85,8 @@
             <td>
                 <p class="alert alert-dismissable alert-info"> @Html.DisplayFor(modelItem => item.Type) </p>
             </td>
+            @if(Settings.ValidateEmail)
+            {
             <td>
                 @if (item.EmailValidated)
                 {
@@ -83,6 +97,9 @@
                     <p class="alert alert-dismissable alert-danger">не</p>
                 }
             </td>
+            }
+            @if(Settings.ValidateSms)
+            {
             <td>
                 @if (item.PhoneValidated)
                 {
@@ -93,6 +110,20 @@
                     <p class="alert alert-dismissable alert-danger">не</p>
                 }
             </td>
+            }
+            @if(Settings.ValidateToken)
+            {
+            <td>
+                @if (item.TokenValidated)
+                {
+                    <p class="alert alert-dismissable alert-success">да</p>
+                }
+                else
+                {
+                    <p class="alert alert-dismissable alert-danger">не</p>
+                }
+            </td>
+            }
             @if (User.IsInRole("Admin"))
             {
                 <td>

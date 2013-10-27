@@ -40,5 +40,23 @@ namespace eDoc.Web.Controllers
             Utils.SendEmail(user.Email, "Document #" + id + " answered", body, user.UserName);
             return RedirectToAction("Index", "Document");
         }
+
+        [ActionName("Settings")]
+        [HttpGet]
+        public ActionResult ValidationSettings()
+        {
+            return View("Settings");
+        }
+
+        [ActionName("Settings")]
+        [HttpPost]
+        public ActionResult ValidationSettings(string emailSetting, string tokenSetting, string phoneSetting)
+        {
+            Settings.ValidateEmail = emailSetting == "on";
+            Settings.ValidateToken = tokenSetting == "on";
+            Settings.ValidateSms = phoneSetting == "on";
+
+            return View("Settings");
+        }
     }
 }
