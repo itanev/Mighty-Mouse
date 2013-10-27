@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Settings";
+}
+
+<h2>Настройки</h2>
+
+@using (Html.BeginForm())
+{
+    <label for="emailSetting">Валидация по Email</label>
+    <input type="checkbox" name="emailSetting" id="emailSetting" checked="@Settings.ValidateEmail"/>
+    
+    <label for="smsSetting">Валидация по SMS</label>
+    <input type="checkbox" name="phoneSetting" id="smsSetting" checked="@Settings.ValidateSms" />
+
+    <label for="tokenSetting">Валидация по Token</label>
+    <input type="checkbox" name="tokenSetting" id="tokenSetting" checked="@Settings.ValidateToken" />
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Запази" class="btn" />
+    </div>
+}

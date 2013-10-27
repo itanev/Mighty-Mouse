@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <settings>
   <fromNumber>+1 484-812-4999</fromNumber>
   <accountSid>ACf1767ab10e6ecb166ca3e80940cd620e</accountSid>
@@ -6,7 +6,7 @@
   <fromEmail>admin@mightymouse.com</fromEmail>
   <mailgunAccount>app4756.mailgun.org</mailgunAccount>
   <mailgunKey>key-1g8ild93unp4dcswe0pgt4ce62ar24z0</mailgunKey>
-  <validateSms>true</validateSms>
-  <validateToken>true</validateToken>
-  <validateEmail>true</validateEmail>
+  <validateSms>True</validateSms>
+  <validateToken>True</validateToken>
+  <validateEmail>True</validateEmail>
 </settings>
