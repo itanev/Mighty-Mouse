@@ -4,59 +4,31 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Детайли</h2>
 
 <fieldset>
-    <legend>Document</legend>
-    <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+    <legend>@Html.DisplayFor(model => model.Type)  ( @Html.DisplayFor(model => model.Status) )</legend>
 
-        <dd>
+    <div style="max-width: 400px; height:70px">
+        <div style="display: inline-block; float:right;">
+            <p><strong>Дата: </strong></p>
             @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorName)
-        </dt>
-
-        <dd>
+        </div>
+        <div style="display: inline-block; float:left">
+            <p><strong>Автор: </strong></p>
             @Html.DisplayFor(model => model.AuthorName)
-        </dd>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-
+    <div style="max-width: 400px;">
+        <p><strong>Съдържание: </strong></p>
+        @Html.DisplayFor(model => model.Content)
+    </div>
+    <div style="max-width: 400px;">
+        <p><strong>Коментар: </strong></p>
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+    <dl>
         @if (!Model.PhoneValidated || !Model.EmailValidated)
         {
             <dt>
@@ -107,13 +79,66 @@
             </dd>
         }
     </dl>
+
+
+    @*<dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Content)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AuthorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AuthorName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comment)
+            </dd>
+
+
+        </dl>*@
 </fieldset>
 <p>
     @if (User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @Html.ActionLink("Редактиране", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
     }
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Обратно към списъка", "Index")
 </p>
 
 @section Scripts {

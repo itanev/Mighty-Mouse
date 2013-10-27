@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace eDoc.Web.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         protected eDoc.Models.ApplicationUser GetCurrentUser()
@@ -16,7 +17,6 @@ namespace eDoc.Web.Controllers
             var user = this.Data.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
             return user;
         }
-
 
         protected IUowData Data;
 

@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Редактиране</h2>
 
 
 @using (Html.BeginForm())
@@ -13,12 +13,12 @@
     @Html.ValidationSummary(true)
 
     <fieldset class="form-horizontal">
-        <legend>Document</legend>
+        <legend>Документ</legend>
 
         @Html.HiddenFor(model => model.Id)
 
         <div class="control-group">
-            @Html.LabelFor(model => model.Content, new { @class = "control-label" })
+            <label class="control-label" for="Content">Съдържание</label>
             <div class="controls">
                 @Html.EditorFor(model => model.Content)
                 @Html.ValidationMessageFor(model => model.Content, null, new { @class = "help-inline" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(model => model.Status, new { @class = "control-label" })
+            <label class="control-label">Статус</label>
             <div class="controls">
                 <select id="document-statuses" name="status">
                     @foreach (var item in ViewBag.Statuses)
@@ -39,7 +39,7 @@
         </div>
 
         <div class="control-group">
-            @Html.LabelFor(model => model.Type, new { @class = "control-label" })
+            <label class="control-label">Тип</label>
             <div class="controls">
                 <select id="document-types" name="type">
                     @foreach (var item in ViewBag.DocumentTypes)
@@ -52,13 +52,13 @@
         </div>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Save" class="btn" />
+            <input type="submit" value="Запази промените" class="btn" />
         </div>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Обратно към списъка", "Index")
 </div>
 
 @section Scripts {

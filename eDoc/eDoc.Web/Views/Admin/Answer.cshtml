@@ -4,26 +4,31 @@
     ViewBag.Title = "Answer";
 }
 
-<h2>Answer</h2>
+<h2>Отговори</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    
-     @Html.HiddenFor(model => model.Id)
-    
-    <select name="status">
-        @foreach (var status in ViewBag.Statuses)
-        {
-            <option value="@status.Id">@status.Name</option>
-        }
-    </select>
 
-    <textarea name="comment"></textarea>
+    @Html.HiddenFor(model => model.Id)
+
+    <div>
+        <label>Статус: </label>
+        <select name="status">
+            @foreach (var status in ViewBag.Statuses)
+            {
+                <option value="@status.Id">@status.Name</option>
+            }
+        </select>
+    </div>
     
+    <div style="width:300px">
+        <label>Коментар:</label>
+        <textarea name="comment" rows="10" cols="80" style="width:auto"></textarea>
+    </div>
     <div class="form-actions no-color">
-        <input type="submit" value="Ok" class="btn" />
+        <input type="submit" value="Запази промените" class="btn" />
     </div>
 }
 
