@@ -98,6 +98,18 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0-rc1\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="TeamAzureDragon.CSharpCompiler">
+      <HintPath>..\..\libs\TeamAzureDragon.CSharpCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.CSharpCompiler.ProxyExecuter">
+      <HintPath>..\..\libs\TeamAzureDragon.CSharpCompiler.ProxyExecuter.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers">
+      <HintPath>..\..\libs\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.Utils">
+      <HintPath>..\..\libs\TeamAzureDragon.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Twilio.Api">
       <HintPath>..\packages\Twilio.3.6.5\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
