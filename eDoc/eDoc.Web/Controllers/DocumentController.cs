@@ -86,11 +86,11 @@ namespace eDoc.Web.Controllers
                         docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
                         docToAdd.TokenCode = Utils.GetTokenConfirmationCode(user.UserName, docToAdd.TokenInput);
                     }
-                  
-                        this.Data.Documents.Add(docToAdd);
-                        this.Data.SaveChanges();
-                        try
-                        {
+
+                    this.Data.Documents.Add(docToAdd);
+                    this.Data.SaveChanges();
+                    try
+                    {
                         if (Settings.ValidateSms)
                             Utils.SendSms(user.PhoneNumber, @"Document #" + docToAdd.Id + ": confirmation code is " + docToAdd.PhoneCode + ".");
 

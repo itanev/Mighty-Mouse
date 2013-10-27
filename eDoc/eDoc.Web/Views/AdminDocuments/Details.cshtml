@@ -1,0 +1,98 @@
+﻿@model eDoc.Models.Document
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Document @Model.Id</legend>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Author.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneValidated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneValidated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailValidated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailValidated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TokenInput)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TokenInput)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TokenCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TokenCode)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+    </dl>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

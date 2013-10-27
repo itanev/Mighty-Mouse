@@ -15,14 +15,10 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("e-Doc", "Index", "Home", null, new { @class = "brand" })
+
                 <div class="nav-collapse collapse">
                     <ul class="nav">
+                        <li><img src="~/img/HackFMI2.0.png" style="height:30px;"/></li>
                         <li>@Html.ActionLink("Начало", "Index", "Home")</li>
                         <li>@Html.ActionLink("е-Документи", "Index", "Document")</li>
                     </ul>

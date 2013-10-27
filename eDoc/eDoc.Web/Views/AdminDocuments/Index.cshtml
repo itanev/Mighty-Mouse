@@ -1,0 +1,87 @@
+﻿@model IEnumerable<eDoc.Models.Document>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Author.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneValidated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailValidated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TokenInput)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TokenCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneValidated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailValidated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TokenInput)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TokenCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
