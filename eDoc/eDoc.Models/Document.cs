@@ -23,9 +23,12 @@ namespace eDoc.Models
         public virtual ApplicationUser Author { get; set; }
 
         [Required]
+        public int StatusId { get; set; }
         public virtual Status Status { get; set; }
 
         [Required]
+        public int DocumentTypeId { get; set; }
+
         public virtual DocumentType Type { get; set; }
 
         public bool PhoneValidated { get; set; }
@@ -43,7 +46,5 @@ namespace eDoc.Models
         public string TokenCode { get; set; }
 
         public string Comment { get; set; }
-
-        public byte[] TokenAssembly { get; set; }
     } 
 }

@@ -1,47 +1,45 @@
-﻿@model eDoc.Web.ViewModels.DocumentIndexVM
-
-@{
+﻿@{
     ViewBag.Title = "Create";
 }
 
-<div class="hero-unit">
+<h2>Създаване на документ</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
 
-        <fieldset class="form-horizontal">
-            <legend>Създай документ:</legend>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-            <div class="control-group">
-                @Html.LabelFor(model => model.Type, new { @class = "control-label" })
-                <div class="controls">
-                    <select id="document-types" name="type">
-                        @foreach (var item in ViewBag.DocumentTypes)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
+    <fieldset class="form-horizontal">
+        <legend>Документ</legend>
 
-                    @Html.ValidationMessageFor(model => model.Type, null, new { @class = "help-inline" })
-                </div>
-            </div>
-
-            <div id="document-template">
+        <div class="control-group well">
+            <label class="control-label" for="Type">Тип: </label>
+            <div class="controls">
+                <select id="document-types" name="type">
+                    @foreach (var item in ViewBag.DocumentTypes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
 
             </div>
+        </div>
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Create" class="btn" />
-            </div>
-        </fieldset>
-    }
+        <div id="document-template" class="well">
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Създай" class="btn" />
+        </div>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Обратно към списъка", "Index")
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>

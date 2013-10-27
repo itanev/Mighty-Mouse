@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity.Owin;
 using eDoc.Web.ViewModels;
 using Typesafe.Mailgun;
 using System.Net.Mail;
+using System.Data.Entity.Validation;
 
 namespace eDoc.Web.Controllers
 {
@@ -25,18 +26,8 @@ namespace eDoc.Web.Controllers
             if (this.User.IsInRole("Admin"))
             {
                 // TODO: Fix. Not good!
-                var allDocs = this.Data.Documents.All().ToList();
-                var allVerifiedDocs = new HashSet<Document>();
-
-                foreach (var doc in allDocs)
-                {
-                    if (Settings.Validate(doc))
-                    {
-                        allVerifiedDocs.Add(doc);
-                    }
-                }
-
-                return View(GetDocumentsAsVM(allVerifiedDocs.AsQueryable()));
+                var docs = this.Data.Documents.All().ToList().Where(Settings.Validate).ToList();
+                return View(GetDocumentsAsVM(docs.AsQueryable()));
             }
 
             var userId = this.User.Identity.GetUserId();
@@ -97,48 +88,67 @@ namespace eDoc.Web.Controllers
                     if (Settings.ValidateToken)
                     {
                         docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
-                        docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
-                        docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
+                        docToAdd.TokenCode = Utils.GetTokenConfirmationCode(user.UserName, docToAdd.TokenInput);
+                        //docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
+                        //docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
                     }
 
                     if (Settings.ValidateSms)
                         Utils.SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
                     if (Settings.ValidateEmail)
-                        Utils.SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation", "Your confirmation code is " + docToAdd.EmailCode + ".");
+                        Utils.SendEmail(user.Email, "MightyMouse Document Confirmation", "Your confirmation code is " + docToAdd.EmailCode + ".");
 
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
                 }
             }
 
-            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult EmailVerify(string code, int id)
+        public ActionResult EmailVerify(string code, int documentId)
         {
-            var doc = this.Data.Documents.GetById(id);
+            var doc = this.Data.Context.Documents.Find(documentId);
 
             if (doc.EmailCode == code)
             {
                 doc.EmailValidated = true;
             }
 
-            return View("Details", doc);
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Details", new  { id = documentId });
         }
 
         [HttpPost]
-        public ActionResult GsmVerify(string code, int id)
+        public ActionResult GsmVerify(string code, int documentId)
         {
-            var doc = this.Data.Documents.GetById(id);
+            var doc = this.Data.Documents.GetById(documentId);
 
             if (doc.PhoneCode == code)
             {
                 doc.PhoneValidated = true;
             }
+            this.Data.SaveChanges();
 
-            return View("Details", doc);
+            return RedirectToAction("Details", new  { id = documentId });
+        }
+
+
+        [HttpPost]
+        public ActionResult TokenVerify(string code, int documentId)
+        {
+            var doc = this.Data.Documents.GetById(documentId);
+
+            if (doc.TokenCode == code)
+            {
+                doc.TokenValidated = true;
+            }
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Details", new  { id = documentId });
         }
 
         [Authorize(Roles = "Admin")]
@@ -177,7 +187,7 @@ namespace eDoc.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+            return View("Index");
         }
 
         [Authorize(Roles = "Admin")]
@@ -205,7 +215,7 @@ namespace eDoc.Web.Controllers
             Document document = this.Data.Documents.GetById((int)id);
             this.Data.Documents.Delete(document);
             this.Data.SaveChanges();
-            return RedirectToAction("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+            return RedirectToAction("Index");
         }
     }
 }

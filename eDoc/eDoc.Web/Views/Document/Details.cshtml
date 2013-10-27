@@ -48,37 +48,59 @@
         <dd>
             @Html.DisplayFor(model => model.Type)
         </dd>
-
-        @if(!Model.PhoneValidated || !Model.EmailValidated)
+        @if (!Model.PhoneValidated || !Model.EmailValidated)
         {
-        <dt>
-            Verification
-        </dt>
+            <dt>
+                Verification
+            </dt>
+            <dd>
+                @if (!Model.PhoneValidated && Settings.ValidateSms)
+                {
+                    <div>
+                        <form action="/Document/GsmVerify" method="POST">
+                            <label for="phoneCode">Phone code:</label>
+                            @Html.TextBox("code",
+                Model.PhoneValidated ? Model.PhoneCode : "",
+                Model.PhoneValidated ? new { @readonly = "true" } : null) <br />
+                            @Html.Hidden("documentId", Model.Id)
+                            <input type="submit" value="Verify" />
+                        </form>
+                    </div>
+                }
+                @if (!Model.EmailValidated && Settings.ValidateEmail)
+                {
+                    <div>
+                        <form action="/Document/EmailVerify" method="POST">
+                            <label for="EmailCode">Email code:</label>
+                            @Html.TextBox("code",
+                Model.EmailValidated ? Model.EmailCode : "",
+                Model.EmailValidated ? new { @readonly = "true" } : null) <br />
+                            @Html.Hidden("documentId", Model.Id)
+                            <input type="submit" value="Verify" />
+                        </form>
+                    </div>
+                }
 
-        <dd>
-            @if(!Model.PhoneValidated)
-            {
-            <div>
-                <label for="phoneCode">Phone code:</label> 
-                @Html.TextBox("phone-code", Model.PhoneValidated ? Model.PhoneCode : "", Model.PhoneValidated ? new { @readonly = "true", @id = "phoneCode" } : null) <br />
-                <button onclick="verifyPhoneCode">Verify</button>
-            </div>
-            }
-            
-            @if(!Model.EmailValidated)
-            {
-            <div>
-                <label for="emailCode">Email code:</label>
-                @Html.TextBox("email-code", Model.EmailValidated ? Model.EmailCode : "", Model.EmailValidated ? new { @readonly = "true", @email = "emailCode" } : null) <br />
-                <button onclick="verifyEmailCode">Verify</button>
-            </div>
-            }
-        </dd>
+                @if (!Model.TokenValidated && Settings.ValidateSms)
+                {
+                    <div>
+                        Token input: @Model.TokenInput <br/>
+                        <form action="/Document/TokenVerify" method="POST">
+                            <label for="TokenCode">Token code:</label>
+                            @Html.TextBox("code",
+                Model.TokenValidated ? Model.TokenCode : "",
+                Model.TokenValidated ? new { @readonly = "true" } : null) <br />
+                            @Html.Hidden("documentId", Model.Id)
+                            <input type="submit" value="Verify" />
+                        </form>
+                    </div>
+                }
+            </dd>
         }
     </dl>
 </fieldset>
 <p>
-    @if(User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin"))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
     }
@@ -87,14 +109,12 @@
 
 @section Scripts {
     <script>
-        function verifyEmailCode()
-        {
+        function verifyEmailCode() {
             var emailCode = $("#emailCode").val();
-            $.post('@Url.Action("EmailVerify", "Document", new { id = Model.Id })?code=' + emailCode);
+            $.post('@Url.Action("EmailVerify", "Document", new { id = Model.Id })?  code=' + emailCode);
         }
 
-        function verifyPhoneCode()
-        {
+        function verifyPhoneCode() {
             var phoneCode = $("#phoneCode").val();
             $.post('@Url.Action("PhoneVerify", "Document", new { id = Model.Id })?code=' + phoneCode);
         }

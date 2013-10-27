@@ -48,35 +48,55 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @if (item.Status.ToLower() == "pending")
+                {
+                    <p class="alert alert-dismissable alert-warning">pending</p>
+                }
+                else if (item.Status.ToLower() == "rejected")
+                {
+                    <p class="alert alert-dismissable alert-danger">rejected</p>
+                }
+                else if (item.Status.ToLower() == "unverified")
+                {
+                    <p class="alert alert-dismissable alert-warning">unverified</p>
+                }
+                else if (item.Status.ToLower() == "approved")
+                {
+                    <p class="alert alert-dismissable alert-success">approved</p>
+                }
+                else
+                {
+                    <p class="alert alert-dismissable alert-info">@Html.DisplayFor(modelItem => item.Status)</p>
+                }
+                
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
+            <td >
+                <p class ="alert alert-dismissable alert-info"> @Html.DisplayFor(modelItem => item.Type) </p>
             </td>
             <td>
                 @if (item.EmailValidated)
                 {
-                    <p>verified</p>
+                    <p class="alert alert-dismissable alert-success">verified</p>
                 }
                 else
                 {
-                    <p>unverified</p>
+                    <p class="alert alert-dismissable alert-danger">unverified</p>
                 }
             </td>
             <td>
                 @if (item.PhoneValidated)
                 {
-                    <p>verified</p>
+                    <p class="alert alert-dismissable alert-success">verified</p>
                 }
                 else
                 {
-                    <p>unverified</p>
+                    <p class="alert alert-dismissable alert-danger">unverified</p>
                 }
             </td>
             @if(User.IsInRole("Admin"))
             {
             <td>
-                <a href="/Admin/Answer/@item.Id">Answer</a>
+                <a href="/Admin/Answer/@item.Id" class="btn btn-primary">Answer</a>
             </td>
             }
             <td>
@@ -88,7 +108,9 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id })
                 @if(User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id}, new  {@class = "btn btn-danger"})
                 }
             </td>
         </tr>

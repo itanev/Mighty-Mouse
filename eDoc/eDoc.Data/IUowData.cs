@@ -9,6 +9,8 @@ namespace eDoc.Data
 {
     public interface IUowData
     {
+        ApplicationDbContext Context { get; }
+
         IRepository<Document> Documents { get; }
 
         IRepository<ApplicationUser> Users { get; }

@@ -26,5 +26,12 @@ namespace eDoc.Web.ViewModels
         public string PhoneCode { get; set; }
 
         public string EmailCode { get; set; }
+
+        public string TokenInput { get; set; }
+
+        public string TokenCode { get; set; }
+
+
+        public bool TokenValidated { get; set; }
     }
 }
