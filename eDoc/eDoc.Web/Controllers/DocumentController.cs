@@ -26,7 +26,7 @@ namespace eDoc.Web.Controllers
             if (this.User.IsInRole("Admin"))
             {
                 // TODO: Fix. Not good!
-                var docs = this.Data.Documents.All().ToList().Where(x => Settings.Validate(x) && x.Status.Name.ToLower() == "pending").ToList();
+                var docs = this.Data.Documents.All().ToList().Where(Settings.Validate).ToList();
                 return View(GetDocumentsAsVM(docs.AsQueryable()));
             }
 
@@ -83,7 +83,6 @@ namespace eDoc.Web.Controllers
                         Status = this.Data.Statuses.All().FirstOrDefault(s => s.Name.ToLower() == "pending"),
                         PhoneCode = Utils.GetConfirmationCode("phone" + user.UserName, 8),
                         EmailCode = Utils.GetConfirmationCode("email" + user.UserName, 8),
-                        Comment = "No comment"
                     };
 
                     if (Settings.ValidateToken)
@@ -93,15 +92,18 @@ namespace eDoc.Web.Controllers
                         //docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
                         //docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
                     }
-                        this.Data.Documents.Add(docToAdd);
-                        this.Data.SaveChanges();
-                        try
-                        {
+
+
+
+                    this.Data.Documents.Add(docToAdd);
+                    this.Data.SaveChanges();
+                    try
+                    {
                         if (Settings.ValidateSms)
                             Utils.SendSms(user.PhoneNumber, @"Document #" + docToAdd.Id + ": confirmation code is " + docToAdd.PhoneCode + ".");
 
                         if (Settings.ValidateEmail)
-                            Utils.SendEmail(user.Email, "Confirm document #" + docToAdd.Id,
+                            Utils.SendEmail(user.PhoneNumber, "Confirm document #" + docToAdd.Id,
                                 "Your confirmation code for document #" + docToAdd.Id + " is " + docToAdd.EmailCode + ".");
                     }
                     catch
@@ -128,7 +130,7 @@ namespace eDoc.Web.Controllers
 
             this.Data.SaveChanges();
 
-            return RedirectToAction("Details", new  { id = documentId });
+            return RedirectToAction("Details", new { id = documentId });
         }
 
         [HttpPost]
@@ -142,7 +144,7 @@ namespace eDoc.Web.Controllers
             }
             this.Data.SaveChanges();
 
-            return RedirectToAction("Details", new  { id = documentId });
+            return RedirectToAction("Details", new { id = documentId });
         }
 
 
@@ -157,7 +159,7 @@ namespace eDoc.Web.Controllers
             }
             this.Data.SaveChanges();
 
-            return RedirectToAction("Details", new  { id = documentId });
+            return RedirectToAction("Details", new { id = documentId });
         }
 
         [Authorize(Roles = "Admin")]
