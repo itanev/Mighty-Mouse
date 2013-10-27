@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roslyn.Compilers.CSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,20 +17,42 @@ namespace eDoc.Web
             random.NextBytes(array);
             return Convert.ToBase64String(array).Substring(0, length);
         }
-        
-        public static string GetTokenConfirmationCode(string code) {
+
+        public static byte[] GetTokenAssembly(string secret)
+        {
+            var tree = SyntaxTree.ParseText(program);
+            IEnumerable<Diagnostic> _;
+            return TeamAzureDragon.CSharpCompiler.Compiler
+                .CompileToAssembly(tree, out _);
+        }
+
+        public static string GetTokenConfirmationCode(string code)
+        {
             return GetConfirmationCode(code, code.Length, false);
         }
-        
+
         public const string GetTokenConfirmationCodeSource =
-@"public static string GetConfirmationCode(string code)
+@"using System;
+
+public class Program
 {
-    var random = new Random(code.GetHashCode());
+const string SECRET = ""{0}"";
+public static void Main(string[] args)
+{
+    Console.WriteLine(""Enter token code:"");
+    string code = Console.ReadLine().Trim();
+    Console.WriteLine(GetConfirmationCode(code));
+}
+public static string GetConfirmationCode(string code)
+{
+    var random = new Random((code + SECRET).GetHashCode());
     var array = new byte[code.Length];
     random.NextBytes(array);
     return Convert.ToBase64String(array).Substring(0, length);
 }
+}
 ";
+
     }
 }
 
