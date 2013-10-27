@@ -11,6 +11,13 @@ namespace eDoc.Web.Controllers
 {
     public class BaseController : Controller
     {
+        protected eDoc.Models.ApplicationUser GetCurrentUser()
+        {
+            var user = this.Data.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+            return user;
+        }
+
+
         protected IUowData Data;
 
         protected HashSet<DocumentIndexVM> GetDocumentsAsVM(IQueryable<Document> documents)

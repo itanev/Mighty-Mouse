@@ -52,10 +52,6 @@ namespace eDoc.Web.Controllers
                "application/octet-stream", "token-"+user.UserName+".exe"); 
         }
 
-        private eDoc.Models.ApplicationUser GetCurrentUser()
-        {
-            var user = this.Data.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
-            return user;
-        }
+   
     }
 }
