@@ -14,7 +14,7 @@ namespace eDoc.Web.Controllers
         public ActionResult Answer(int id)
         {
             var currentDocument = this.Data.Documents.GetById(id);
-            ViewBag.Statuses = this.Data.Statuses.All().ToList();
+            ViewBag.Statuses = this.Data.Statuses.All().Where(x => x.Id == 3 || x.Id == 4).ToList();
 
             return View(GetDocumentAsVM(currentDocument));
         }
@@ -30,8 +30,8 @@ namespace eDoc.Web.Controllers
             this.Data.SaveChanges();
 
             string body = 
-@"<p>Your document #" + id + @" has been answered:<br/> 
-Status: " + currentDocument.Status.Name;
+                @"<p>Your document #" + id + @" has been answered:<br/> 
+                Status: " + currentDocument.Status.Name;
             if(!string.IsNullOrWhiteSpace(comment)){
                 body += "<br/>Comment: " + comment;
             }
