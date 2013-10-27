@@ -89,10 +89,10 @@ namespace eDoc.Web.Controllers
                     }
 
                     if (Settings.ValidateSms)
-                        SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
+                        Utils.SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
                     if (Settings.ValidateEmail)
-                        SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation - " + docToAdd.Title, "Your confirmation code is " + docToAdd.EmailCode + ".");
+                        Utils.SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation - " + docToAdd.Title, "Your confirmation code is " + docToAdd.EmailCode + ".");
 
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
@@ -102,38 +102,7 @@ namespace eDoc.Web.Controllers
             return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
 
-        private static void SendEmail(string to, string subject, string body)
-        {
-            // https://api.mailgun.net/v2
-            // http://documentation.mailgun.com/quickstart.html#sending-messages
-            string mailgunAccount;
-            string mailgunKey;
-            string fromEmail;
-            Settings.GetEmailSettings(out mailgunAccount, out mailgunKey, out fromEmail);
-            var client = new MailgunClient(mailgunAccount, mailgunKey);
 
-            var message = new System.Net.Mail.MailMessage(fromEmail, to);
-            message.Sender = new MailAddress(fromEmail);
-
-            message.From = message.Sender;
-
-
-            message.Subject =
-            message.Body = body;
-
-            client.SendMail(message);
-        }
-
-        static void SendSms(string toNumber, string body)
-        {
-            string fromNumber;
-            string accountSid;
-            string authToken;
-            Settings.GetSmsSettings(out fromNumber, out accountSid, out authToken);
-            var smsClient = new Twilio.TwilioRestClient(accountSid, authToken);
-            smsClient.SendSmsMessage(fromNumber, toNumber, body);
-
-        }
 
         [HttpPost]
         public ActionResult EmailVerify(string code, int id)

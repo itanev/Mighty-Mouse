@@ -53,6 +53,38 @@ public static string GetConfirmationCode(string code)
 }
 }
 ";
+        public static void SendEmail(string to, string subject, string body)
+        {
+            // https://api.mailgun.net/v2
+            // http://documentation.mailgun.com/quickstart.html#sending-messages
+            string mailgunAccount;
+            string mailgunKey;
+            string fromEmail;
+            Settings.GetEmailSettings(out mailgunAccount, out mailgunKey, out fromEmail);
+            var client = new MailgunClient(mailgunAccount, mailgunKey);
+
+            var message = new System.Net.Mail.MailMessage(fromEmail, to);
+            message.Sender = new MailAddress(fromEmail);
+
+            message.From = message.Sender;
+
+
+            message.Subject =
+            message.Body = body;
+
+            client.SendMail(message);
+        }
+
+        public static void SendSms(string toNumber, string body)
+        {
+            string fromNumber;
+            string accountSid;
+            string authToken;
+            Settings.GetSmsSettings(out fromNumber, out accountSid, out authToken);
+            var smsClient = new Twilio.TwilioRestClient(accountSid, authToken);
+            smsClient.SendSmsMessage(fromNumber, toNumber, body);
+
+        }
 
     }
 }
