@@ -26,14 +26,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AuthorName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuthorName)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
 
@@ -49,30 +41,33 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
+        @if (!string.IsNullOrWhiteSpace(Model.Comment))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Comment)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Comment)
+            </dd>
+        }
 
         @if (!Settings.Validate(Model))
         {
             <dt>
-                Verification
+                Валидиране:
             </dt>
             <dd>
                 @if (!Model.PhoneValidated && Settings.ValidateSms)
                 {
                     <div>
                         <form action="/Document/GsmVerify" method="POST">
-                            <label for="phoneCode">Phone code:</label>
+                            <label for="phoneCode">Код от SMS:</label>
                             @Html.TextBox("code",
                                 Model.PhoneValidated ? Model.PhoneCode : "",
                                 Model.PhoneValidated ? new { @readonly = "true" } : null) <br />
                             @Html.Hidden("documentId", Model.Id)
-                            <input type="submit" value="Verify" />
+                            <input type="submit" value="OK" />
                         </form>
                     </div>
                 }
@@ -80,27 +75,27 @@
                 {
                     <div>
                         <form action="/Document/EmailVerify" method="POST">
-                            <label for="EmailCode">Email code:</label>
+                            <label for="EmailCode">Код от email:</label>
                             @Html.TextBox("code",
                                 Model.EmailValidated ? Model.EmailCode : "",
                                 Model.EmailValidated ? new { @readonly = "true" } : null) <br />
                             @Html.Hidden("documentId", Model.Id)
-                            <input type="submit" value="Verify" />
+                            <input type="submit" value="OK" />
                         </form>
                     </div>
                 }
 
-                @if (!Model.TokenValidated && Settings.ValidateToken) 
+                @if (!Model.TokenValidated && Settings.ValidateToken)
                 {
                     <div>
-                        Token input: @Model.TokenInput <br />
+                        Вход за Токен генерация: @Model.TokenInput <br />
                         <form action="/Document/TokenVerify" method="POST">
-                            <label for="TokenCode">Token code:</label>
+                            <label for="TokenCode">Код от Токен:</label>
                             @Html.TextBox("code",
                                 Model.TokenValidated ? Model.TokenCode : "",
                                 Model.TokenValidated ? new { @readonly = "true" } : null) <br />
                             @Html.Hidden("documentId", Model.Id)
-                            <input type="submit" value="Verify" />
+                            <input type="submit" value="OK" />
                         </form>
                     </div>
                 }
@@ -113,19 +108,5 @@
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
     }
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Обратно към списъка", "Index")
 </p>
-
-@section Scripts {
-    <script>
-        function verifyEmailCode() {
-            var emailCode = $("#emailCode").val();
-            $.post('@Url.Action("EmailVerify", "Document", new { id = Model.Id })?  code=' + emailCode);
-        }
-
-        function verifyPhoneCode() {
-            var phoneCode = $("#phoneCode").val();
-            $.post('@Url.Action("PhoneVerify", "Document", new { id = Model.Id })?code=' + phoneCode);
-        }
-    </script>
-}

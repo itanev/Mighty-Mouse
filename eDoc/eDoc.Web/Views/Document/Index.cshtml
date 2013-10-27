@@ -100,11 +100,11 @@
                 </td>
             }
             <td>
-                @Html.ActionLink("Детайли", "Details", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block; margin-top:5px; margin-bottom: 5px;" })
+                @Html.ActionLink("Детайли", "Details", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block;" })
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Редактирай", "Edit", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block" })
-                    @Html.ActionLink("Изтрий", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "display:block" })
+                    @Html.ActionLink("Редактирай", "Edit", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block;  margin-top:5px;" })
+                    @Html.ActionLink("Изтрий", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "display:block;  margin-top:5px;" })
                 }
             </td>
         </tr>

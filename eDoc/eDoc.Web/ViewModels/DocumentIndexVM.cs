@@ -1,6 +1,7 @@
 ﻿using eDoc.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -12,14 +13,21 @@ namespace eDoc.Web.ViewModels
 
         public string AuthorName { get; set; }
 
+        [DisplayName("Дата")]
         public DateTime Date { get; set; }
 
+        public int StatusId { get; set; }
+
+        [DisplayName("Статус")]
         public string Status { get; set; }
 
+        [DisplayName("Вид")]
         public string Type { get; set; }
 
+        [DisplayName("Съдържание")]
         public string Content { get; set; }
 
+        [DisplayName("Коментар на отговора")]
         public string Comment { get; set; }
 
         public bool PhoneValidated { get; set; }

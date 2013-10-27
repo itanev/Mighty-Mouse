@@ -20,7 +20,10 @@
                     <ul class="nav">
                         <li><img src="~/img/HackFMI2.0.png" style="height:30px;"/></li>
                         <li>@Html.ActionLink("Начало", "Index", "Home")</li>
-                        <li>@Html.ActionLink("е-Документи", "Index", "Document")</li>
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("е-Документи", "Index", "Document")</li>
+                        }
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
