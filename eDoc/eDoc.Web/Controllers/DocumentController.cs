@@ -22,13 +22,26 @@ namespace eDoc.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View(GetDocumentsAsVM(this.Data.Documents.All()));
-        }
+            if (this.User.IsInRole("Admin"))
+            {
+                // TODO: Fix. Not good!
+                var allDocs = this.Data.Documents.All().ToList();
+                var allVerifiedDocs = new HashSet<Document>();
 
-        public ActionResult Pending()
-        {
-            var documents = this.Data.Documents.All().Where(x => x.EmailValidated && x.PhoneValidated);
-            return View(GetDocumentsAsVM(documents));
+                foreach (var doc in allDocs)
+                {
+                    if (Settings.Validate(doc))
+                    {
+                        allVerifiedDocs.Add(doc);
+                    }
+                }
+
+                return View(GetDocumentsAsVM(allVerifiedDocs.AsQueryable()));
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            var allDocsOfCurrUser = this.Data.Documents.All().Where(x => x.AuthorId == userId);
+            return View(GetDocumentsAsVM(allDocsOfCurrUser));
         }
 
         public ActionResult Details(int? id)
@@ -92,7 +105,7 @@ namespace eDoc.Web.Controllers
                         Utils.SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
                     if (Settings.ValidateEmail)
-                        Utils.SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation - " + docToAdd.Title, "Your confirmation code is " + docToAdd.EmailCode + ".");
+                        Utils.SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation", "Your confirmation code is " + docToAdd.EmailCode + ".");
 
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
@@ -101,8 +114,6 @@ namespace eDoc.Web.Controllers
 
             return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
-
-
 
         [HttpPost]
         public ActionResult EmailVerify(string code, int id)
@@ -130,6 +141,7 @@ namespace eDoc.Web.Controllers
             return View("Details", doc);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -151,6 +163,7 @@ namespace eDoc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(DocumentEditVM document)
         {
             if (ModelState.IsValid)
@@ -167,6 +180,7 @@ namespace eDoc.Web.Controllers
             return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -185,6 +199,7 @@ namespace eDoc.Web.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Document document = this.Data.Documents.GetById((int)id);

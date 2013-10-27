@@ -32,6 +32,8 @@ namespace eDoc.Models
 
         public bool EmailValidated { get; set; }
 
+        public bool TokenValidated { get; set; }
+
         public string PhoneCode { get; set; }
 
         public string EmailCode { get; set; }
@@ -39,8 +41,6 @@ namespace eDoc.Models
         public string TokenInput { get; set; }
 
         public string TokenCode { get; set; }
-
-        public string Title { get; set; }
 
         public string Comment { get; set; }
 

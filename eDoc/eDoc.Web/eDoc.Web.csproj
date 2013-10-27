@@ -268,7 +268,6 @@
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Document\_Application.cshtml" />
     <Content Include="Views\Document\_Declaration.cshtml" />
-    <Content Include="Views\Document\Pending.cshtml" />
     <Content Include="Views\Admin\Answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
