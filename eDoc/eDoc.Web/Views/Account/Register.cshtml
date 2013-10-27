@@ -1,10 +1,10 @@
-@model eDoc.Web.Models.RegisterViewModel
+﻿@model eDoc.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>Регистрация</h1>
 </hgroup>
 
 @using (Html.BeginForm())
@@ -13,21 +13,21 @@
     @Html.ValidationSummary()
 
     <fieldset class="form-horizontal">
-        <legend>Create a new account.</legend>
+        <legend>Създаване на нов потребителски профил.</legend>
         <div class="control-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+            <label class = "control-label">Потребителско име</label>
             <div class="controls">
                 @Html.TextBoxFor(m => m.UserName)
             </div>
         </div>
         <div class="control-group">
-            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            <label class="control-label">Парола</label>
             <div class="controls">
                 @Html.PasswordFor(m => m.Password)
             </div>
         </div>
         <div class="control-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+            <label class="control-label">Потвърдете паролата</label>
             <div class="controls">
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </div>
@@ -39,13 +39,13 @@
             </div>
         </div>
         <div class="control-group">
-            @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+            <label class="control-label">GSM номер</label>
                 <div class="controls">
                     @Html.TextBoxFor(m => m.PhoneNumber)
                 </div>
         </div>
         <div class="form-actions no-color">
-            <input type="submit" value="Register" class="btn" />
+            <input type="submit" value="Регистрация" class="btn" />
         </div>
     </fieldset>
 }
