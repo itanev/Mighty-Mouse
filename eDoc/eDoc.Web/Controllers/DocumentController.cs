@@ -26,7 +26,7 @@ namespace eDoc.Web.Controllers
             if (this.User.IsInRole("Admin"))
             {
                 // TODO: Fix. Not good!
-                var docs = this.Data.Documents.All().ToList().Where(Settings.Validate).ToList();
+                var docs = this.Data.Documents.All().ToList().Where(x => Settings.Validate(x) && x.StatusId == 2).ToList();
                 return View(GetDocumentsAsVM(docs.AsQueryable()));
             }
 
