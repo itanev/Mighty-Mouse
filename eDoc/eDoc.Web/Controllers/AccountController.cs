@@ -89,15 +89,20 @@ namespace eDoc.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() 
-                { 
-                    UserName = model.UserName, 
-                    Email = model.Email, 
-                    PhoneNumber = model.PhoneNumber 
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
                 };
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
+                    string body = string.Format(
+"A validation token generator is ready for you at {0}. It only be downloaded once.", 
+                        "http://" + Request.Url.Host + "/Home/GetTokenAssembly");
+
+                    Utils.SendEmail(model.Email, "Mighty Mouse - Validation token generator", body);
                     await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

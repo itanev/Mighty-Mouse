@@ -1,4 +1,5 @@
 ﻿<fieldset class="form-horizontal">
+<<<<<<< HEAD
     <legend>Декларация</legend>
 
     <div class="control-group" id="application">
@@ -14,11 +15,20 @@
         </div>
 
         <p class="date">Дата: </p>
+=======
+
+    <div class="control-group" id="application">
+        <p class="to">До декана на Факултета по математика и информатика към <br /> Софийски Университет "Св. Климент Охридски"</p>
+        <h2 class="type">Декларация</h2>
+        <p>От <input type="text" name="senderName" /></p>
+        <textarea name="content" rows="20" cols="40"></textarea>
+        <p id="date">Дата: </p>
+>>>>>>> 91c663cab8386afa69f1f8236ea2675d1906e034
     </div>
 
 </fieldset>
 
 <script type="text/javascript">
     var date = new Date();
-    document.getElementsByClassName("date")[0].innerHtml = date.getDay() + "." + date.getMonth() + "." + date.getYear() + "г.";
+    document.getElementById("date").innerHTML = "Дата: " + date.getDate() + "." + (date.getMonth() + 1) + "." + (1900 + date.getYear()) + "г.";
 </script>

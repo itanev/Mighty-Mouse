@@ -26,8 +26,9 @@ namespace eDoc.Web.Controllers
                     Content = item.Content,
                     Status = item.Status.Name,
                     Type = item.Type.Name,
-                    EmailVarified = item.EmailValidated,
-                    GsmVarified = item.PhoneValidated
+                    EmailValidated = item.EmailValidated,
+                    PhoneValidated = item.PhoneValidated,
+                    TokenInput = item.TokenInput,
                 });
             }
 
@@ -44,8 +45,9 @@ namespace eDoc.Web.Controllers
                 AuthorName = doc.Author.UserName,
                 Status = doc.Status.Name,
                 Type = doc.Type.Name,
-                EmailVarified = doc.EmailValidated,
-                GsmVarified = doc.PhoneValidated
+                EmailValidated = doc.EmailValidated,
+                PhoneValidated = doc.PhoneValidated,
+                TokenInput = doc.TokenInput,
             };
         }
 

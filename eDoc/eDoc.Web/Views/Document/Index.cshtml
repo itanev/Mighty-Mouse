@@ -71,7 +71,7 @@
                 <p class ="alert alert-dismissable alert-info"> @Html.DisplayFor(modelItem => item.Type) </p>
             </td>
             <td>
-                @if (item.EmailVarified)
+                @if (item.EmailValidated)
                 {
                     <p class="alert alert-dismissable alert-success">verified</p>
                 }
@@ -81,7 +81,7 @@
                 }
             </td>
             <td>
-                @if (item.GsmVarified)
+                @if (item.PhoneValidated)
                 {
                     <p class="alert alert-dismissable alert-success">verified</p>
                 }
@@ -98,7 +98,11 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id}, new  {@class = "btn btn-danger"})
             </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>*@
         </tr>
     }
-
 </table>

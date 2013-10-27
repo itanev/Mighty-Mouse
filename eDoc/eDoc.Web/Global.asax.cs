@@ -1,7 +1,9 @@
 ﻿using eDoc.Data;
 using eDoc.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -28,7 +30,10 @@ namespace eDoc.Web
                 // context.Database.Initialize(true);
                 if (context.Statuses.Count() == 0)
                 {
+                    context.Statuses.Add(new Status { Name = "Unverified" });
                     context.Statuses.Add(new Status { Name = "Pending" });
+                    context.Statuses.Add(new Status { Name = "Approved" });
+                    context.Statuses.Add(new Status { Name = "Rejected" });
                 }
                 if (context.DocumentTypes.Count() == 0)
                 {
@@ -41,11 +46,23 @@ namespace eDoc.Web
                         context.DocumentTypes.Add(dt);
                     }
                 }
-                context.SaveChanges();
+                if (context.Users.Count() == 0)
+                {
+                    var userAdmin = new ApplicationUser()
+                    {
+                        UserName = "admin",
+                        Email = "admin@mightymouse.com",
+                        Logins = new Collection<UserLogin> { new UserLogin { LoginProvider = "Local", ProviderKey = "admin", } },
+                        Roles = new Collection<UserRole> {new UserRole {Role = new Role("Admin")}}
+                    };
+
+                    context.Users.Add(userAdmin);
+                    context.UserSecrets.Add(new UserSecret("admin", "ACQbq83L/rsvlWq11Zor2jVtz2KAMcHNd6x1SN2EXHs7VuZPGaE8DhhnvtyO10Nf5Q=="));
+                }
+                 context.SaveChanges();
 
             }
             Settings.Initialize();
-            //*/
         }
     }
 }

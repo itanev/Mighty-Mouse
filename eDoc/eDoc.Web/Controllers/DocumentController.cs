@@ -80,40 +80,28 @@ namespace eDoc.Web.Controllers
                         PhoneCode = Utils.GetConfirmationCode("phone" + user.UserName, 8),
                         EmailCode = Utils.GetConfirmationCode("email" + user.UserName, 8),
                     };
-                    // todo: send email
-                    string fromNumber;
-                    string accountSid;
-                    string authToken;
-                    Settings.GetSmsSettings(out fromNumber, out accountSid, out authToken);
-                    string mailgunAccount;
-                    string mailgunKey;
-                    string fromEmail;
-                    Settings.GetEmailSettings(out mailgunAccount, out mailgunKey, out fromEmail);
-                    var smsClient = new Twilio.TwilioRestClient(accountSid, authToken);
-                    smsClient.SendSmsMessage(fromNumber, user.PhoneNumber,
-                        @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
-                    // https://api.mailgun.net/v2
-                    // http://documentation.mailgun.com/quickstart.html#sending-messages
+                    if (Settings.ValidateToken)
+                    {
+                        docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
+                        docToAdd.TokenCode = Utils.GetTokenConfirmationCode(user.UserName, docToAdd.TokenInput);
+                    }
 
-                    var client = new MailgunClient(mailgunAccount, mailgunKey);
+                    if (Settings.ValidateSms)
+                        Utils.SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
-                    var message = new System.Net.Mail.MailMessage(fromEmail, user.Email);
-                    message.Sender = new MailAddress(fromEmail);
+                    if (Settings.ValidateEmail)
+                        Utils.SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation - " + docToAdd.Title, "Your confirmation code is " + docToAdd.EmailCode + ".");
 
-                    message.From = message.Sender;
-                    message.Subject = "MightyMouse Document Confirmation - " + title;
-
-                    message.Body = "Your confirmation code is " + docToAdd.EmailCode + ".";
-
-                    var result = client.SendMail(message);
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
                 }
             }
-
+            // Utils.GetTokenAssembly(user.Username);
             return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
+
+
 
         [HttpPost]
         public ActionResult EmailVerify(string code, int id)

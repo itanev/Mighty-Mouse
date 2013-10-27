@@ -9,10 +9,17 @@ namespace eDoc.Web
     public static class Settings
     {
         static readonly XmlDocument settings = new XmlDocument();
+        static string path;
 
         public static void Initialize()
-        {   
-            settings.Load(AppDomain.CurrentDomain.BaseDirectory + "\\Content\\settings.xml");
+        {
+            path = AppDomain.CurrentDomain.BaseDirectory + "\\Content\\settings.xml";
+            settings.Load(path);
+        }
+
+        public static void Save()
+        {
+            settings.Save(path);
         }
 
 
@@ -28,6 +35,42 @@ namespace eDoc.Web
             mailgunAccount = settings.SelectSingleNode("/settings/mailgunAccount").InnerXml.Trim();
             mailgunKey = settings.SelectSingleNode("/settings/mailgunKey").InnerXml.Trim();
             fromEmail = settings.SelectSingleNode("/settings/fromEmail").InnerXml.Trim();
+        }
+
+        public static bool ValidateToken
+        {
+            get
+            {
+                return settings.SelectSingleNode("/settings/validateToken").InnerXml.Trim().ToLower() == "true";
+            }
+            set
+            {
+                settings.SelectSingleNode("/settings/validateToken").InnerXml = value + "";
+            }
+        }
+
+        public static bool ValidateSms
+        {
+            get
+            {
+                return settings.SelectSingleNode("/settings/validateSms").InnerXml.Trim().ToLower() == "true";
+            }
+            set
+            {
+                settings.SelectSingleNode("/settings/validateSms").InnerXml = value + "";
+            }
+        }
+
+        public static bool ValidateEmail
+        {
+            get
+            {
+                return settings.SelectSingleNode("/settings/validateEmail").InnerXml.Trim().ToLower() == "true";
+            }
+            set
+            {
+                settings.SelectSingleNode("/settings/validateEmail").InnerXml = value + "";
+            }
         }
     }
 }

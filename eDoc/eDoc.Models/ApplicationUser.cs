@@ -13,7 +13,10 @@ namespace eDoc.Models
         [Required]
         public string Email { get; set; }
 
+        [Required]
         public string PhoneNumber { get; set; }
+
+        public bool? IsTokenAssemblyDownloaded { get; set; }
 
         private ICollection<Document> documents;
 

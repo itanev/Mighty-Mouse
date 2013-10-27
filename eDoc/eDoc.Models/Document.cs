@@ -36,6 +36,10 @@ namespace eDoc.Models
 
         public string EmailCode { get; set; }
 
+        public string TokenInput { get; set; }
+
+        public string TokenCode { get; set; }
+
         public string Title { get; set; }
 
         public string Comment { get; set; }
