@@ -20,7 +20,8 @@ namespace eDoc.Web
 
         public static byte[] GetTokenAssembly(string secret)
         {
-            var tree = SyntaxTree.ParseText(program);
+            var tree = SyntaxTree.ParseText(
+                string.Format(GetTokenConfirmationCodeSource, secret));
             IEnumerable<Diagnostic> _;
             return TeamAzureDragon.CSharpCompiler.Compiler
                 .CompileToAssembly(tree, out _);
