@@ -111,7 +111,7 @@ namespace eDoc.Web.Controllers
                     body += "</p>";
                     Utils.SendEmail(model.Email, "Registration for " + user.UserName, body, user.UserName);
                     await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Document");
                 }
                 else
                 {
