@@ -4,15 +4,31 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Изтриване</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Сигурни ли сте, че искате да изтриете този доумент?</h3>
 <fieldset>
-    <legend>Document</legend>
+    <legend>@Html.DisplayFor(model => model.Type)  ( @Html.DisplayFor(model => model.Status) )</legend>
 
-    <dl>
+    <div style="max-width: 400px; height:70px">
+        <div style="display: inline-block; float:right;">
+            <p><strong>Дата: </strong></p>
+            @Html.DisplayFor(model => model.Date)
+        </div>
+        <div style="display: inline-block; float:left">
+            <p><strong>Автор: </strong></p>
+            @Html.DisplayFor(model => model.AuthorName)
+        </div>
+    </div>
+
+    <div style="max-width: 400px;">
+        <p><strong>Съдържание: </strong></p>
+        @Html.DisplayFor(model => model.Content)
+    </div>
+
+    @*<dl>
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            Дата
         </dt>
 
         <dd>
@@ -20,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Content)
+            Съдържание
         </dt>
 
         <dd>
@@ -28,7 +44,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AuthorName)
+            Автор
         </dt>
 
         <dd>
@@ -36,7 +52,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            Статус
         </dt>
 
         <dd>
@@ -44,20 +60,20 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            Тип
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Type)
         </dd>
 
-    </dl>
+    </dl>*@
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Изтриване" class="btn btn-danger" /> |
+        @Html.ActionLink("Обратно към списъка", "Index")
     </div>
 }
