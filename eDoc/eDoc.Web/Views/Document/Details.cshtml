@@ -57,7 +57,7 @@
             @Html.DisplayFor(model => model.Comment)
         </dd>
 
-        @if (!Model.PhoneValidated || !Model.EmailValidated)
+        @if (!Settings.Validate(Model))
         {
             <dt>
                 Verification
@@ -90,7 +90,7 @@
                     </div>
                 }
 
-                @if (!Model.TokenValidated && Settings.ValidateSms)
+                @if (!Model.TokenValidated && Settings.ValidateToken) 
                 {
                     <div>
                         Token input: @Model.TokenInput <br />

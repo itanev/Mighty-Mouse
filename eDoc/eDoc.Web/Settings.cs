@@ -37,7 +37,7 @@ namespace eDoc.Web
             fromEmail = settings.SelectSingleNode("/settings/fromEmail").InnerXml.Trim();
         }
 
-        public static bool Validate(Document doc)
+        public static bool Validate(IDocumentValidationData doc)
         {
             var result = true;
 

@@ -58,6 +58,7 @@ namespace eDoc.Web
             Console.WriteLine(""Enter token code:"");
             string tokenInput = Console.ReadLine().Trim();
             Console.WriteLine(GetConfirmationCode(tokenInput));
+            Console.ReadLine();
         }
         public static int GetHash(string str)
         {

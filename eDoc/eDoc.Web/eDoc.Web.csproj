@@ -206,6 +206,10 @@
     <Compile Include="ViewModels\DocumentIndexVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\eDoc.mdf" />
+    <Content Include="App_Data\eDoc_log.ldf">
+      <DependentUpon>eDoc.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -278,7 +282,6 @@
     <Content Include="Views\AdminDocuments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Libraries\" />
   </ItemGroup>
   <ItemGroup>

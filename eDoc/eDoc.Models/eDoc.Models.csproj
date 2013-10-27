@@ -57,6 +57,7 @@
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DocumentType.cs" />
+    <Compile Include="IDocumentIndexVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />
   </ItemGroup>

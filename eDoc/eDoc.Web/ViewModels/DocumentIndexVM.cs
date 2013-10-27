@@ -1,11 +1,12 @@
-﻿using System;
+﻿using eDoc.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace eDoc.Web.ViewModels
 {
-    public class DocumentIndexVM
+    public class DocumentIndexVM : IDocumentValidationData
     {
         public int Id { get; set; }
 

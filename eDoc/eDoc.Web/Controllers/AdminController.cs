@@ -38,7 +38,7 @@ namespace eDoc.Web.Controllers
             body += "</p><p>You can see details about the document by logging into the system.</p>";
             var user = currentDocument.Author;
             Utils.SendEmail(user.Email, "Document #" + id + " answered", body, user.UserName);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Document");
         }
     }
 }

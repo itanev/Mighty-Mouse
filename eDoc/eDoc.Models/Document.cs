@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eDoc.Models
 {
-    public class Document
+    public class Document : IDocumentValidationData
     {
         [Key]
         public int Id { get; set; }

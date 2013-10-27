@@ -89,11 +89,7 @@ namespace eDoc.Web.Controllers
                     {
                         docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
                         docToAdd.TokenCode = Utils.GetTokenConfirmationCode(user.UserName, docToAdd.TokenInput);
-                        //docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
-                        //docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
                     }
-
-
 
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
@@ -103,7 +99,7 @@ namespace eDoc.Web.Controllers
                             Utils.SendSms(user.PhoneNumber, @"Document #" + docToAdd.Id + ": confirmation code is " + docToAdd.PhoneCode + ".");
 
                         if (Settings.ValidateEmail)
-                            Utils.SendEmail(user.PhoneNumber, "Confirm document #" + docToAdd.Id,
+                            Utils.SendEmail(user.Email, "Confirm document #" + docToAdd.Id,
                                 "Your confirmation code for document #" + docToAdd.Id + " is " + docToAdd.EmailCode + ".");
                     }
                     catch

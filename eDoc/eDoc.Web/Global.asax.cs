@@ -52,6 +52,7 @@ namespace eDoc.Web
                     {
                         UserName = "admin",
                         Email = "admin@mightymouse.com",
+                        PhoneNumber = "0000",
                         Logins = new Collection<UserLogin> { new UserLogin { LoginProvider = "Local", ProviderKey = "admin", } },
                         Roles = new Collection<UserRole> {new UserRole {Role = new Role("Admin")}}
                     };
