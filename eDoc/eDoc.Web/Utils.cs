@@ -74,8 +74,6 @@ namespace eDoc.Web
         }
         public static string GetConfirmationCode(string tokenInput)
         {
-            Console.WriteLine(tokenInput + SECRET);
-            Console.WriteLine(GetHash(tokenInput + SECRET));
             var random = new Random(GetHash(tokenInput + SECRET));
             var array = new byte[tokenInput.Length];
             random.NextBytes(array);
@@ -83,7 +81,8 @@ namespace eDoc.Web
         }
         }
         ";
-        public static void SendEmail(string to, string subject, string body)
+
+        public static void SendEmail(string to, string subject, string body, string addressee = null)
         {
             // https://api.mailgun.net/v2
             // http://documentation.mailgun.com/quickstart.html#sending-messages
@@ -97,10 +96,18 @@ namespace eDoc.Web
             message.Sender = new MailAddress(fromEmail);
 
             message.From = message.Sender;
-
-
-            message.Subject =
-            message.Body = body;
+            message.IsBodyHtml = true;
+            message.Subject = "MightyMouse Documents System - " + subject;
+            if (addressee != null)
+            {
+                body = "<p>Dear " + addressee + ",</p>" + body;
+            }
+            message.Body = body + 
+@"<p>Love,
+<br>
+The MightyMouse Team</p>
+<br>
+<p>Please don't reply to this email as the inbox is not monitored.</p>";
 
             client.SendMail(message);
         }

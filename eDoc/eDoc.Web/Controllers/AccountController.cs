@@ -98,11 +98,18 @@ namespace eDoc.Web.Controllers
                 var result = await IdentityManager.Users.CreateLocalUserAsync(user, model.Password);
                 if (result.Success)
                 {
-                    string body = string.Format(
-"A validation token generator is ready for you at {0}. It only be downloaded once.", 
-                        "http://" + Request.Url.Host + "/Home/GetTokenAssembly");
+                    string body = "<p>Thank you for registering.";
 
-                    Utils.SendEmail(model.Email, "Mighty Mouse - Validation token generator", body);
+                    if (Settings.ValidateToken)
+                    {
+                         body += string.Format(
+@" After signing in, you can download a token generator for signing your documents from the following link: <a='{0}'>{0}</a>. It can only be downloaded once.",
+                            "http://" + Request.Url.Host + ":" + Request.Url.Port + "/Home/GetTokenAssembly");
+
+                    }
+
+                    body += "</p>";
+                    Utils.SendEmail(model.Email, "Registration for " + user.UserName, body, user.UserName);
                     await IdentityManager.Authentication.SignInAsync(AuthenticationManager, user.Id, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }

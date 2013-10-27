@@ -93,14 +93,24 @@ namespace eDoc.Web.Controllers
                         //docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
                     }
 
-                    if (Settings.ValidateSms)
-                        Utils.SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
+                  
+                        this.Data.Documents.Add(docToAdd);
+                        this.Data.SaveChanges();
+                        try
+                        {
+                        if (Settings.ValidateSms)
+                            Utils.SendSms(user.PhoneNumber, @"Document #" + docToAdd.Id + ": confirmation code is " + docToAdd.PhoneCode + ".");
 
-                    if (Settings.ValidateEmail)
-                        Utils.SendEmail(user.Email, "MightyMouse Document Confirmation", "Your confirmation code is " + docToAdd.EmailCode + ".");
-
-                    this.Data.Documents.Add(docToAdd);
-                    this.Data.SaveChanges();
+                        if (Settings.ValidateEmail)
+                            Utils.SendEmail(user.PhoneNumber, "Confirm document #" + docToAdd.Id,
+                                "Your confirmation code for document #" + docToAdd.Id + " is " + docToAdd.EmailCode + ".");
+                    }
+                    catch
+                    {
+                        this.Data.SaveChanges();
+                        this.Data.Documents.Delete(docToAdd);
+                        throw;
+                    }
                 }
             }
 
