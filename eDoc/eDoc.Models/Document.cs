@@ -27,11 +27,15 @@ namespace eDoc.Models
         [DisplayName("Име автор")]
         public virtual ApplicationUser Author { get; set; }
 
-        [Required]
         [DisplayName("Статус")]
         public virtual Status Status { get; set; }
 
         [Required]
+        public int StatusId { get; set; }
+
+        [Required]
+        public int DocumentTypeId { get; set; }
+
         [DisplayName("Тип документ")]
         public virtual DocumentType Type { get; set; }
 
@@ -42,6 +46,8 @@ namespace eDoc.Models
         public bool EmailValidated { get; set; }
 
         [DisplayName("Код телефон")]
+        public bool TokenValidated { get; set; }
+
         public string PhoneCode { get; set; }
 
         [DisplayName("Код Email")]
@@ -55,5 +61,5 @@ namespace eDoc.Models
 
         [DisplayName("Коментар на отговора")]
         public string Comment { get; set; }
-    } 
+    }
 }

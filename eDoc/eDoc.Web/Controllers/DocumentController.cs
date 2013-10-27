@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity.Owin;
 using eDoc.Web.ViewModels;
 using Typesafe.Mailgun;
 using System.Net.Mail;
+using System.Data.Entity.Validation;
 
 namespace eDoc.Web.Controllers
 {
@@ -22,13 +23,16 @@ namespace eDoc.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View(GetDocumentsAsVM(this.Data.Documents.All()));
-        }
+            if (this.User.IsInRole("Admin"))
+            {
+                // TODO: Fix. Not good!
+                var docs = this.Data.Documents.All().ToList().Where(Settings.Validate).ToList();
+                return View(GetDocumentsAsVM(docs.AsQueryable()));
+            }
 
-        public ActionResult Pending()
-        {
-            var documents = this.Data.Documents.All().Where(x => x.EmailValidated && x.PhoneValidated);
-            return View(GetDocumentsAsVM(documents));
+            var userId = this.User.Identity.GetUserId();
+            var allDocsOfCurrUser = this.Data.Documents.All().Where(x => x.AuthorId == userId);
+            return View(GetDocumentsAsVM(allDocsOfCurrUser));
         }
 
         public ActionResult Details(int? id)
@@ -85,7 +89,11 @@ namespace eDoc.Web.Controllers
                     {
                         docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
                         docToAdd.TokenCode = Utils.GetTokenConfirmationCode(user.UserName, docToAdd.TokenInput);
+                        //docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
+                        //docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
                     }
+
+
 
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
@@ -106,37 +114,55 @@ namespace eDoc.Web.Controllers
                     }
                 }
             }
-            // Utils.GetTokenAssembly(user.Username);
-            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+
+            return RedirectToAction("Index");
         }
 
-
         [HttpPost]
-        public ActionResult EmailVerify(string code, int id)
+        public ActionResult EmailVerify(string code, int documentId)
         {
-            var doc = this.Data.Documents.GetById(id);
+            var doc = this.Data.Context.Documents.Find(documentId);
 
             if (doc.EmailCode == code)
             {
                 doc.EmailValidated = true;
             }
 
-            return View("Details", doc);
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Details", new { id = documentId });
         }
 
         [HttpPost]
-        public ActionResult GsmVerify(string code, int id)
+        public ActionResult GsmVerify(string code, int documentId)
         {
-            var doc = this.Data.Documents.GetById(id);
+            var doc = this.Data.Documents.GetById(documentId);
 
             if (doc.PhoneCode == code)
             {
                 doc.PhoneValidated = true;
             }
+            this.Data.SaveChanges();
 
-            return View("Details", doc);
+            return RedirectToAction("Details", new { id = documentId });
         }
 
+
+        [HttpPost]
+        public ActionResult TokenVerify(string code, int documentId)
+        {
+            var doc = this.Data.Documents.GetById(documentId);
+
+            if (doc.TokenCode == code)
+            {
+                doc.TokenValidated = true;
+            }
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Details", new { id = documentId });
+        }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -158,6 +184,7 @@ namespace eDoc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(DocumentEditVM document)
         {
             if (ModelState.IsValid)
@@ -171,9 +198,10 @@ namespace eDoc.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+            return View("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -192,12 +220,13 @@ namespace eDoc.Web.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Document document = this.Data.Documents.GetById((int)id);
             this.Data.Documents.Delete(document);
             this.Data.SaveChanges();
-            return RedirectToAction("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+            return RedirectToAction("Index");
         }
     }
 }

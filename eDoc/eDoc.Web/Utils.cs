@@ -48,41 +48,40 @@ namespace eDoc.Web
         }
 
         public const string GetTokenConfirmationCodeSource =
-@"using System;
+        @"using System;
 
-public class Program
-{
-const string SECRET = ""####"";
-public static void Main(string[] args)
-{
-    Console.WriteLine(""Enter token code:"");
-    string tokenInput = Console.ReadLine().Trim();
-    Console.WriteLine(GetConfirmationCode(tokenInput));
-}
-public static int GetHash(string str)
-{
-    int result = 0;
-    foreach (var ch in str)
-    {
-        unchecked
+        public class Program
         {
-            result += ch;
-            result <<= 2;
+        const string SECRET = ""####"";
+        public static void Main(string[] args)
+        {
+            Console.WriteLine(""Enter token code:"");
+            string tokenInput = Console.ReadLine().Trim();
+            Console.WriteLine(GetConfirmationCode(tokenInput));
         }
-    }
-    return result;
-}
-public static string GetConfirmationCode(string tokenInput)
-{
-    Console.WriteLine(tokenInput + SECRET);
-    Console.WriteLine(GetHash(tokenInput + SECRET));
-    var random = new Random(GetHash(tokenInput + SECRET));
-    var array = new byte[tokenInput.Length];
-    random.NextBytes(array);
-    return Convert.ToBase64String(array).Substring(0, tokenInput.Length);
-}
-}
-";
+        public static int GetHash(string str)
+        {
+            int result = 0;
+            foreach (var ch in str)
+            {
+                unchecked
+                {
+                    result += ch;
+                    result <<= 2;
+                }
+            }
+            return result;
+        }
+        public static string GetConfirmationCode(string tokenInput)
+        {
+            var random = new Random(GetHash(tokenInput + SECRET));
+            var array = new byte[tokenInput.Length];
+            random.NextBytes(array);
+            return Convert.ToBase64String(array).Substring(0, tokenInput.Length);
+        }
+        }
+        ";
+
         public static void SendEmail(string to, string subject, string body, string addressee = null)
         {
             // https://api.mailgun.net/v2

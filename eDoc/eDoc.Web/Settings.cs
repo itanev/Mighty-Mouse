@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eDoc.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,7 +23,6 @@ namespace eDoc.Web
             settings.Save(path);
         }
 
-
         public static void GetSmsSettings(out string fromNumber, out string accountSid, out string authToken)
         {
             fromNumber = settings.SelectSingleNode("/settings/fromNumber").InnerXml.Trim();
@@ -35,6 +35,28 @@ namespace eDoc.Web
             mailgunAccount = settings.SelectSingleNode("/settings/mailgunAccount").InnerXml.Trim();
             mailgunKey = settings.SelectSingleNode("/settings/mailgunKey").InnerXml.Trim();
             fromEmail = settings.SelectSingleNode("/settings/fromEmail").InnerXml.Trim();
+        }
+
+        public static bool Validate(Document doc)
+        {
+            var result = true;
+
+            if (ValidateToken)
+            {
+                if (!doc.TokenValidated) return false;
+            }
+
+            if (ValidateEmail)
+            {
+                if (!doc.EmailValidated) return false;
+            }
+
+            if (ValidateSms)
+            {
+                if (!doc.PhoneValidated) return false;
+            }
+
+            return result;
         }
 
         public static bool ValidateToken

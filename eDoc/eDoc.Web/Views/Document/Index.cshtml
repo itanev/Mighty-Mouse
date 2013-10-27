@@ -27,11 +27,14 @@
             Потвърдено чрез E-mail
         </th>
         <th>
-            Потвърденто чре GSM
+            Потвърденто чрез GSM
         </th>
-        <th>
-            Отговор
-        </th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>
+                Отговор
+            </th>
+        }
         <th></th>
     </tr>
 
@@ -65,44 +68,45 @@
                 {
                     <p class="alert alert-dismissable alert-info">@Html.DisplayFor(modelItem => item.Status)</p>
                 }
-                
+
             </td>
-            <td >
-                <p class ="alert alert-dismissable alert-info"> @Html.DisplayFor(modelItem => item.Type) </p>
+            <td>
+                <p class="alert alert-dismissable alert-info"> @Html.DisplayFor(modelItem => item.Type) </p>
             </td>
             <td>
                 @if (item.EmailValidated)
                 {
-                    <p class="alert alert-dismissable alert-success">верифицарана</p>
+                    <p class="alert alert-dismissable alert-success">да</p>
                 }
                 else
                 {
-                    <p class="alert alert-dismissable alert-danger">неверифицарана</p>
+                    <p class="alert alert-dismissable alert-danger">не</p>
                 }
             </td>
             <td>
                 @if (item.PhoneValidated)
                 {
-                    <p class="alert alert-dismissable alert-success">верифицарана</p>
+                    <p class="alert alert-dismissable alert-success">да</p>
                 }
                 else
                 {
-                    <p class="alert alert-dismissable alert-danger">неверифицарана</p>
+                    <p class="alert alert-dismissable alert-danger">не</p>
                 }
             </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a href="/Admin/Answer/@item.Id" class="btn btn-primary">Отговори</a>
+                </td>
+            }
             <td>
-                <a href="/Admin/Answer/@item.Id" class="btn btn-primary">Отговори</a>
+                @Html.ActionLink("Детайли", "Details", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block; margin-top:5px; margin-bottom: 5px;" })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Редактирай", "Edit", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block" })
+                    @Html.ActionLink("Изтрий", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "display:block" })
+                }
             </td>
-            <td>
-                @Html.ActionLink("Редактирай", "Edit", new { id = item.Id }, new { @class = "btn btn-default", style="display:block" }) 
-                @Html.ActionLink("Детайли", "Details", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block; margin-top:5px; margin-bottom: 5px;" }) 
-                @Html.ActionLink("Изтрий", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "display:block" })
-            </td>
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>*@
         </tr>
     }
 </table>

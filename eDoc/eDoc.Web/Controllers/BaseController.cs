@@ -11,6 +11,13 @@ namespace eDoc.Web.Controllers
 {
     public class BaseController : Controller
     {
+        protected eDoc.Models.ApplicationUser GetCurrentUser()
+        {
+            var user = this.Data.Users.All().FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+            return user;
+        }
+
+
         protected IUowData Data;
 
         protected HashSet<DocumentIndexVM> GetDocumentsAsVM(IQueryable<Document> documents)
@@ -26,8 +33,10 @@ namespace eDoc.Web.Controllers
                     Content = item.Content,
                     Status = item.Status.Name,
                     Type = item.Type.Name,
+                    TokenValidated = item.TokenValidated,
                     EmailValidated = item.EmailValidated,
                     PhoneValidated = item.PhoneValidated,
+                    TokenCode = item.TokenCode,
                     TokenInput = item.TokenInput,
                 });
             }
@@ -46,8 +55,10 @@ namespace eDoc.Web.Controllers
                 Status = doc.Status.Name,
                 Type = doc.Type.Name,
                 EmailValidated = doc.EmailValidated,
+                TokenValidated = doc.TokenValidated,
                 PhoneValidated = doc.PhoneValidated,
                 TokenInput = doc.TokenInput,
+                TokenCode = doc.TokenCode,
             };
         }
 

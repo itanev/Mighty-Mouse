@@ -10,7 +10,13 @@ namespace eDoc.Data
 {
     public class UowData : IUowData
     {
-        private readonly DbContext context;
+        private readonly ApplicationDbContext context;
+
+        public ApplicationDbContext Context
+        {
+            get { return context; }
+        } 
+
         private readonly Dictionary<Type, object> repositories = new Dictionary<Type, object>();
 
         public UowData()
@@ -18,7 +24,7 @@ namespace eDoc.Data
         {
         }
 
-        public UowData(DbContext context)
+        public UowData(ApplicationDbContext context)
         {
             this.context = context;
         }

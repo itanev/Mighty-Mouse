@@ -29,5 +29,9 @@ namespace eDoc.Web.ViewModels
 
         public string TokenInput { get; set; }
 
+        public string TokenCode { get; set; }
+
+
+        public bool TokenValidated { get; set; }
     }
 }

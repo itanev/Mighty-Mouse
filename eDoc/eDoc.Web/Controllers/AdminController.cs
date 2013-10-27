@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace eDoc.Web.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class AdminController : BaseController
     {
         [HttpGet]
@@ -27,9 +28,17 @@ namespace eDoc.Web.Controllers
             currentDocument.Type = this.Data.Documents.GetById(id).Type;
             this.Data.Documents.Update(currentDocument);
             this.Data.SaveChanges();
-            ViewBag.Statuses = this.Data.Statuses.All().ToList();
 
-            return View(GetDocumentAsVM(currentDocument));
+            string body = 
+@"<p>Your document #" + id + @" has been answered:<br/> 
+Status: " + currentDocument.Status.Name;
+            if(!string.IsNullOrWhiteSpace(comment)){
+                body += "<br/>Comment: " + comment;
+            }
+            body += "</p><p>You can see details about the document by logging into the system.</p>";
+            var user = currentDocument.Author;
+            Utils.SendEmail(user.Email, "Document #" + id + " answered", body, user.UserName);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
