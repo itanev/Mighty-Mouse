@@ -41,13 +41,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Kendo.Mvc, Version=2013.2.918.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Kendo.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.3.3\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers">
+      <HintPath>..\packages\Roslyn.Compilers.Common.1.2.20906.2\lib\net45\Roslyn.Compilers.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn.Compilers.CSharp">
+      <HintPath>..\packages\Roslyn.Compilers.CSharp.1.2.20906.2\lib\net45\Roslyn.Compilers.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -97,6 +99,18 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0-rc1\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.CSharpCompiler">
+      <HintPath>..\..\libs\TeamAzureDragon.CSharpCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.CSharpCompiler.ProxyExecuter">
+      <HintPath>..\..\libs\TeamAzureDragon.CSharpCompiler.ProxyExecuter.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers">
+      <HintPath>..\..\libs\TeamAzureDragon.CSharpCompiler.SecuritySafeHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamAzureDragon.Utils">
+      <HintPath>..\..\libs\TeamAzureDragon.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Twilio.Api">
       <HintPath>..\packages\Twilio.3.6.5\lib\3.5\Twilio.Api.dll</HintPath>
@@ -175,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -190,14 +205,11 @@
     <Compile Include="ViewModels\DocumentIndexVM.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\eDoc.mdf" />
-    <Content Include="App_Data\eDoc_log.ldf">
-      <DependentUpon>eDoc.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\mightymouse.crt" />
     <Content Include="Content\settings.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -256,8 +268,11 @@
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Document\_Application.cshtml" />
     <Content Include="Views\Document\_Declaration.cshtml" />
+    <Content Include="Views\Document\Pending.cshtml" />
+    <Content Include="Views\Admin\Answer.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Libraries\" />
   </ItemGroup>
   <ItemGroup>

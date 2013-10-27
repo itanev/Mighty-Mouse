@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<eDoc.Web.ViewModels.DocumentIndexVM>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pending";
 }
 
-<h2>Index</h2>
+<h2>Pending</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -24,13 +21,10 @@
             @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
-            Email verified
+            @Html.DisplayNameFor(model => model.Content)
         </th>
         <th>
-            Gsm verified
-        </th>
-        <th>
-            Answer
+            @Html.DisplayNameFor(model => model.Content)
         </th>
         <th></th>
     </tr>
@@ -51,39 +45,14 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                @if (item.EmailValidated)
-                {
-                    <p>verified</p>
-                }
-                else
-                {
-                    <p>unverified</p>
-                }
-            </td>
-            <td>
-                @if (item.PhoneValidated)
-                {
-                    <p>verified</p>
-                }
-                else
-                {
-                    <p>unverified</p>
-                }
-            </td>
-            <td>
-                <a href="/Admin/Answer/@item.Id">Answer</a>
+                @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>*@
         </tr>
     }
+
 </table>

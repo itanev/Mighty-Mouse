@@ -16,46 +16,19 @@ using eDoc.Web.ViewModels;
 using Typesafe.Mailgun;
 using System.Net.Mail;
 
-
 namespace eDoc.Web.Controllers
 {
     public class DocumentController : BaseController
     {
-        private HashSet<DocumentIndexVM> GetDocumentsAsVM(IQueryable<Document> documents)
-        {
-            var items = new HashSet<DocumentIndexVM>();
-            foreach (var item in documents)
-            {
-                items.Add(new DocumentIndexVM
-                {
-                    Id = item.Id,
-                    AuthorName = item.Author.UserName,
-                    Date = item.Date,
-                    Content = item.Content,
-                    Status = item.Status.Name,
-                    Type = item.Type.Name
-                });
-            }
-
-            return items;
-        }
-
-        private DocumentIndexVM GetDocumentAsVM(Document doc)
-        {
-            return new DocumentIndexVM()
-            {
-                Id = doc.Id,
-                Date = doc.Date,
-                Content = doc.Content,
-                AuthorName = doc.Author.UserName,
-                Status = doc.Status.Name,
-                Type = doc.Type.Name
-            };
-        }
-
         public ActionResult Index()
         {
             return View(GetDocumentsAsVM(this.Data.Documents.All()));
+        }
+
+        public ActionResult Pending()
+        {
+            var documents = this.Data.Documents.All().Where(x => x.EmailValidated && x.PhoneValidated);
+            return View(GetDocumentsAsVM(documents));
         }
 
         public ActionResult Details(int? id)
@@ -103,45 +76,59 @@ namespace eDoc.Web.Controllers
                         Date = DateTime.Now,
                         Content = content,
                         Type = this.Data.DocumentTypes.GetById(type),
-                        Status = this.Data.Statuses.All().FirstOrDefault(s => s.Name.ToLower() == "unverified"),
+                        Status = this.Data.Statuses.All().FirstOrDefault(s => s.Name.ToLower() == "pending"),
                         PhoneCode = Utils.GetConfirmationCode("phone" + user.UserName, 8),
                         EmailCode = Utils.GetConfirmationCode("email" + user.UserName, 8),
                     };
-                    // todo: send email
-                    string fromNumber;
-                    string accountSid;
-                    string authToken;
-                    Settings.GetSmsSettings(out fromNumber, out accountSid, out authToken);
-                    string mailgunAccount;
-                    string mailgunKey;
-                    string fromEmail;
-                    Settings.GetEmailSettings(out mailgunAccount, out mailgunKey, out fromEmail);
-                    var smsClient = new Twilio.TwilioRestClient(accountSid, authToken);
-                    smsClient.SendSmsMessage(fromNumber, user.PhoneNumber,
-                        @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
-                    // https://api.mailgun.net/v2
-                    // http://documentation.mailgun.com/quickstart.html#sending-messages
+                    if (Settings.ValidateToken)
+                    {
+                        docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
+                        docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
+                        docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
+                    }
 
-                    var client = new MailgunClient(mailgunAccount, mailgunKey);
+                    if (Settings.ValidateSms)
+                        Utils.SendSms(user.PhoneNumber, @"Your confirmation code is " + docToAdd.PhoneCode + ".");
 
-                    var message = new System.Net.Mail.MailMessage(fromEmail, user.Email);
-                    message.Sender = new MailAddress(fromEmail);
+                    if (Settings.ValidateEmail)
+                        Utils.SendEmail(user.PhoneNumber, "MightyMouse Document Confirmation - " + docToAdd.Title, "Your confirmation code is " + docToAdd.EmailCode + ".");
 
-                    message.From = message.Sender;
-                    message.Subject = "MightyMouse Document Confirmation - " + title;
-
-                    message.Body = "Your confirmation code is " + docToAdd.EmailCode + ".";
-
-                    var result = client.SendMail(message);
                     this.Data.Documents.Add(docToAdd);
                     this.Data.SaveChanges();
                 }
             }
 
-            return View("Details", GetDocumentsAsVM(this.Data.Documents.All()));
+            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
 
+
+
+        [HttpPost]
+        public ActionResult EmailVerify(string code, int id)
+        {
+            var doc = this.Data.Documents.GetById(id);
+
+            if (doc.EmailCode == code)
+            {
+                doc.EmailValidated = true;
+            }
+
+            return View("Details", doc);
+        }
+
+        [HttpPost]
+        public ActionResult GsmVerify(string code, int id)
+        {
+            var doc = this.Data.Documents.GetById(id);
+
+            if (doc.PhoneCode == code)
+            {
+                doc.PhoneValidated = true;
+            }
+
+            return View("Details", doc);
+        }
 
         public ActionResult Edit(int? id)
         {
