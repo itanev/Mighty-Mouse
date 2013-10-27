@@ -280,6 +280,7 @@
     <Content Include="Views\AdminDocuments\Details.cshtml" />
     <Content Include="Views\AdminDocuments\Edit.cshtml" />
     <Content Include="Views\AdminDocuments\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Libraries\" />

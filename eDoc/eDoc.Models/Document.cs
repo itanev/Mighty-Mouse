@@ -45,9 +45,10 @@ namespace eDoc.Models
         [DisplayName("Email валидиран?")]
         public bool EmailValidated { get; set; }
 
-        [DisplayName("Код телефон")]
+        [DisplayName("Токен валидиран?")]
         public bool TokenValidated { get; set; }
 
+        [DisplayName("Код телефон")]
         public string PhoneCode { get; set; }
 
         [DisplayName("Код Email")]

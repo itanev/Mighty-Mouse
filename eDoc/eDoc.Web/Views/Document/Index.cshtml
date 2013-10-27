@@ -4,13 +4,23 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Моите документи</h2>
 
-<p>
-    @Html.ActionLink("Създай нов", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <h2>Документи за отговор</h2>
+}
+else
+{
+    <h2>Моите документи</h2>
+    <p>
+        @Html.ActionLink("Създай нов", "Create")
+    </p>
+}
 <table class="table">
     <tr>
+        <th>
+            #
+        </th>
         <th>
             Автор
         </th>
@@ -42,6 +52,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.AuthorName)
             </td>
             <td>
@@ -50,7 +63,7 @@
             <td>
                 @if (item.Status.ToLower() == "pending")
                 {
-                    <p class="alert alert-dismissable alert-warning">Обработване...</p>
+                    <p class="alert alert-dismissable alert-warning">Очаква отгожор</p>
                 }
                 else if (item.Status.ToLower() == "rejected")
                 {
@@ -58,7 +71,7 @@
                 }
                 else if (item.Status.ToLower() == "unverified")
                 {
-                    <p class="alert alert-dismissable alert-warning">Невврифицирана</p>
+                    <p class="alert alert-dismissable alert-warning">Невeрифицирана</p>
                 }
                 else if (item.Status.ToLower() == "approved")
                 {

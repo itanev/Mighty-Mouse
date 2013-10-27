@@ -1,0 +1,16 @@
+﻿@model eDoc.Web.ViewModels.DocumentIndexVM
+
+@{
+    ViewBag.Title = "Answer";
+}
+<style>
+    li {
+        margin-top: 5px;
+    }
+</style>
+<h2>Администрация</h2>
+<ul>
+    <li>@Html.ActionLink("Документи", "Index", "AdminDocuments", null, new { @class = "btn" }) <br /></li>
+    <li>@Html.ActionLink("Потребители", "Index", "AdminUsers", null, new { @class = "btn" })     <br />   </li>
+    <li>@Html.ActionLink("Настройки на системата", "Settings", "Admin", null, new { @class = "btn" }) <br /></li>
+</ul>

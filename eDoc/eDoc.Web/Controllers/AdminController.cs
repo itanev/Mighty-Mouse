@@ -40,5 +40,10 @@ namespace eDoc.Web.Controllers
             Utils.SendEmail(user.Email, "Document #" + id + " answered", body, user.UserName);
             return RedirectToAction("Index", "Document");
         }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }

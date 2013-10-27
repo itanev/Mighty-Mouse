@@ -17,6 +17,7 @@
             <label class="control-label" for="Type">Тип: </label>
             <div class="controls">
                 <select id="document-types" name="type">
+                    <option value="none"></option>
                     @foreach (var item in ViewBag.DocumentTypes)
                     {
                         <option value="@item.Id">@item.Name</option>
@@ -31,7 +32,7 @@
         </div>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Създай" class="btn" />
+            <input type="submit" value="Подай" class="btn" />
         </div>
     </fieldset>
 }
@@ -43,13 +44,15 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+        $("#document-types").val("");
         $("#document-types").change(function (e) {
             var dropDown = $("#document-types");
-            var type = dropDown.children()[dropDown.val() - 1].innerText;
-            
-            $.get('@Url.Action("SelectType","Document")?type=' + type, function (data) {
-                $('#document-template').html(data);
-            });
+            if (dropDown.val() != "none") {
+                var type = dropDown.children()[dropDown.val()].innerText;
+                $.get('@Url.Action("SelectType","Document")?type=' + type, function (data) {
+                    $('#document-template').html(data);
+                });
+            }
         });
     </script>
 }

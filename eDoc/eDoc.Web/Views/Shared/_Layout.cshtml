@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>MightyMouse Documents System</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,11 +18,15 @@
 
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li><img src="~/img/HackFMI2.0.png" style="height:30px;"/></li>
+                        <li><img src="~/img/HackFMI2.0.png" style="height:30px;" /></li>
                         <li>@Html.ActionLink("Начало", "Index", "Home")</li>
-                        @if(User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("е-Документи", "Index", "Document")</li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li>@Html.ActionLink("Администрация", "Index", "Admin")</li>
+                            }
                         }
                     </ul>
                     @Html.Partial("_LoginPartial")
@@ -32,7 +36,7 @@
     </div>
     <div class="container">
         @RenderBody()
-        <div class="navbar navbar navbar-fixed-bottom modal-footer">HackFmi</div>
+        <div class="navbar navbar navbar-fixed-bottom modal-footer">MightyMouse Document System 0.0.1</div>
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
