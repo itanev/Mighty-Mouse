@@ -48,6 +48,15 @@
         <dd>
             @Html.DisplayFor(model => model.Type)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
         @if (!Model.PhoneValidated || !Model.EmailValidated)
         {
             <dt>
@@ -60,8 +69,8 @@
                         <form action="/Document/GsmVerify" method="POST">
                             <label for="phoneCode">Phone code:</label>
                             @Html.TextBox("code",
-                Model.PhoneValidated ? Model.PhoneCode : "",
-                Model.PhoneValidated ? new { @readonly = "true" } : null) <br />
+                                Model.PhoneValidated ? Model.PhoneCode : "",
+                                Model.PhoneValidated ? new { @readonly = "true" } : null) <br />
                             @Html.Hidden("documentId", Model.Id)
                             <input type="submit" value="Verify" />
                         </form>
@@ -73,8 +82,8 @@
                         <form action="/Document/EmailVerify" method="POST">
                             <label for="EmailCode">Email code:</label>
                             @Html.TextBox("code",
-                Model.EmailValidated ? Model.EmailCode : "",
-                Model.EmailValidated ? new { @readonly = "true" } : null) <br />
+                                Model.EmailValidated ? Model.EmailCode : "",
+                                Model.EmailValidated ? new { @readonly = "true" } : null) <br />
                             @Html.Hidden("documentId", Model.Id)
                             <input type="submit" value="Verify" />
                         </form>
@@ -84,12 +93,12 @@
                 @if (!Model.TokenValidated && Settings.ValidateSms)
                 {
                     <div>
-                        Token input: @Model.TokenInput <br/>
+                        Token input: @Model.TokenInput <br />
                         <form action="/Document/TokenVerify" method="POST">
                             <label for="TokenCode">Token code:</label>
                             @Html.TextBox("code",
-                Model.TokenValidated ? Model.TokenCode : "",
-                Model.TokenValidated ? new { @readonly = "true" } : null) <br />
+                                Model.TokenValidated ? Model.TokenCode : "",
+                                Model.TokenValidated ? new { @readonly = "true" } : null) <br />
                             @Html.Hidden("documentId", Model.Id)
                             <input type="submit" value="Verify" />
                         </form>

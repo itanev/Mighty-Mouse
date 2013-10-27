@@ -19,9 +19,13 @@ namespace eDoc.Web.ViewModels
 
         public string Content { get; set; }
 
+        public string Comment { get; set; }
+
         public bool PhoneValidated { get; set; }
 
         public bool EmailValidated { get; set; }
+
+        public bool TokenValidated { get; set; }
 
         public string PhoneCode { get; set; }
 
@@ -30,8 +34,5 @@ namespace eDoc.Web.ViewModels
         public string TokenInput { get; set; }
 
         public string TokenCode { get; set; }
-
-
-        public bool TokenValidated { get; set; }
     }
 }
