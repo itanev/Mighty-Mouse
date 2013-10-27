@@ -1,5 +1,4 @@
 ﻿<fieldset class="form-horizontal">
-    <legend>Application</legend>
 
     <div class="control-group" id="application">
         <p class="to">До декана на Факултета по математика и информатика към <br /> Софийски Университет "Св. Климент Охридски"</p>
@@ -13,5 +12,5 @@
 
 <script type="text/javascript">
     var date = new Date();
-    document.getElementById("date").innerHtml( date.getDay() + "." + date.getMonth() + "." + date.getYear() + "г.");
+    document.getElementById("date").innerHTML = "Дата: " + date.getDate() + "." + (date.getMonth() + 1) + "." + (1900 + date.getYear()) + "г.";
 </script>

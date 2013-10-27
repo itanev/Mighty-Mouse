@@ -18,5 +18,13 @@ namespace eDoc.Web.ViewModels
         public string Type { get; set; }
 
         public string Content { get; set; }
+
+        public bool PhoneValidated { get; set; }
+
+        public bool EmailValidated { get; set; }
+
+        public string PhoneCode { get; set; }
+
+        public string EmailCode { get; set; }
     }
 }

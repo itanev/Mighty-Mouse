@@ -49,9 +49,16 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
 
+        <dd>
+            @Html.TextBox("phone-code", Model.PhoneValidated ? Model.PhoneCode : "", Model.PhoneValidated ? new { @readonly = "true" } : null)
+        </dd>
     </dl>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @if (!Model.PhoneValidated)
+    {
+
+    }
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

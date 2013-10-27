@@ -103,7 +103,7 @@ namespace eDoc.Web.Controllers
                         Date = DateTime.Now,
                         Content = content,
                         Type = this.Data.DocumentTypes.GetById(type),
-                        Status = this.Data.Statuses.All().FirstOrDefault(s => s.Name.ToLower() == "pending"),
+                        Status = this.Data.Statuses.All().FirstOrDefault(s => s.Name.ToLower() == "unverified"),
                         PhoneCode = Utils.GetConfirmationCode("phone" + user.UserName, 8),
                         EmailCode = Utils.GetConfirmationCode("email" + user.UserName, 8),
                     };
@@ -139,8 +139,9 @@ namespace eDoc.Web.Controllers
                 }
             }
 
-            return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
+            return View("Details", GetDocumentsAsVM(this.Data.Documents.All()));
         }
+
 
         public ActionResult Edit(int? id)
         {
