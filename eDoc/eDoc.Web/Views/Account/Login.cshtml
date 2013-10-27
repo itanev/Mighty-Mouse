@@ -1,11 +1,11 @@
-@model eDoc.Web.Models.LoginViewModel
+﻿@model eDoc.Web.Models.LoginViewModel
 
 @{
     ViewBag.Title = "Log in";
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+    <h1>Вписване</h1>
 </hgroup>
 <div class="row-fluid">
     <div class="span6">
@@ -15,16 +15,16 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
                 <fieldset class="form-horizontal">
-                    <legend>Use a local account to log in.</legend>
+                    
                     <div class="control-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                        <label class="control-label">Потребителско име</label>
                         <div class="controls">
                             @Html.TextBoxFor(m => m.UserName)
                             @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "help-inline" })
                         </div>
                     </div>
                     <div class="control-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                        <label class="control-label">Парола</label>
                         <div class="controls">
                             @Html.PasswordFor(m => m.Password)
                             @Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-inline" })
@@ -32,18 +32,17 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <label class="checkbox">
+                            <label class="checkbox">Запомни ме
                                 @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
                             </label>
                         </div>
                     </div>
                     <div class="form-actions no-color">
-                        <input type="submit" value="Log in" class="btn" />
+                        <input type="submit" value="Вписване" class="btn" />
                     </div>
                 </fieldset>
                 <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
+                    @Html.ActionLink("Регистрирайте се", "Register") ако нямате потребителски профил.
                 </p>
             }
         </section>

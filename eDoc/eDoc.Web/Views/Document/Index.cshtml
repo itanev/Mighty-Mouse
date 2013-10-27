@@ -4,33 +4,33 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Моите документи</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Създай нов", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AuthorName)
+            Автор
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            Дата
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            Статус
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            Тип
         </th>
         <th>
-            Email verified
+            Потвърдено чрез E-mail
         </th>
         <th>
-            Gsm verified
+            Потвърденто чре GSM
         </th>
         <th>
-            Answer
+            Отговор
         </th>
         <th></th>
     </tr>
@@ -47,19 +47,19 @@
             <td>
                 @if (item.Status.ToLower() == "pending")
                 {
-                    <p class="alert alert-dismissable alert-warning">pending</p>
+                    <p class="alert alert-dismissable alert-warning">Обработване...</p>
                 }
                 else if (item.Status.ToLower() == "rejected")
                 {
-                    <p class="alert alert-dismissable alert-danger">rejected</p>
+                    <p class="alert alert-dismissable alert-danger">Отказана</p>
                 }
                 else if (item.Status.ToLower() == "unverified")
                 {
-                    <p class="alert alert-dismissable alert-warning">unverified</p>
+                    <p class="alert alert-dismissable alert-warning">Невврифицирана</p>
                 }
                 else if (item.Status.ToLower() == "approved")
                 {
-                    <p class="alert alert-dismissable alert-success">approved</p>
+                    <p class="alert alert-dismissable alert-success">Одобрена</p>
                 }
                 else
                 {
@@ -73,30 +73,30 @@
             <td>
                 @if (item.EmailValidated)
                 {
-                    <p class="alert alert-dismissable alert-success">verified</p>
+                    <p class="alert alert-dismissable alert-success">верифицарана</p>
                 }
                 else
                 {
-                    <p class="alert alert-dismissable alert-danger">unverified</p>
+                    <p class="alert alert-dismissable alert-danger">неверифицарана</p>
                 }
             </td>
             <td>
                 @if (item.PhoneValidated)
                 {
-                    <p class="alert alert-dismissable alert-success">verified</p>
+                    <p class="alert alert-dismissable alert-success">верифицарана</p>
                 }
                 else
                 {
-                    <p class="alert alert-dismissable alert-danger">unverified</p>
+                    <p class="alert alert-dismissable alert-danger">неверифицарана</p>
                 }
             </td>
             <td>
-                <a href="/Admin/Answer/@item.Id" class="btn btn-primary">Answer</a>
+                <a href="/Admin/Answer/@item.Id" class="btn btn-primary">Отговори</a>
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id}, new  {@class = "btn btn-danger"})
+                @Html.ActionLink("Редактирай", "Edit", new { id = item.Id }, new { @class = "btn btn-default", style="display:block" }) 
+                @Html.ActionLink("Детайли", "Details", new { id = item.Id }, new { @class = "btn btn-default", style = "display:block; margin-top:5px; margin-bottom: 5px;" }) 
+                @Html.ActionLink("Изтрий", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", style = "display:block" })
             </td>
             @*<td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
