@@ -1,11 +1,19 @@
 ﻿<fieldset class="form-horizontal">
-    <legend>Application</legend>
+    <legend>Заявление</legend>
 
     <div class="control-group" id="application">
         <p class="to">До декана на Факултета по математика и информатика към <br /> Софийски Университет "Св. Климент Охридски"</p>
-        <h2 class="type">Заявление</h2>
-        <p>От <input type="text" name="senderName" /></p>
-        <textarea name="content" rows="20" cols="40"></textarea>
+        <div class="form-group">
+            <label style="display:inline-block; width:65px">От:</label>
+            <input style="margin-left: 24px; display:inline-block" placeholder="От" type="text" name="senderName" />
+        </div>
+
+        <div style="margin-top: 5px;" class="form-group">
+            <label style="display: inline-block; vertical-align: top; width:65px">Съдържание:</label>
+            <textarea style="margin-left: 24px" name=" content" rows="20" cols="40" placeholder="Съдържанието на вашата молба"></textarea>
+        </div>
+        
+        
         <p id="date" class="date">Дата: </p>
     </div>
 
