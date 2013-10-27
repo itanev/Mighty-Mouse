@@ -37,7 +37,7 @@ else
             Потвърдено чрез E-mail
         </th>
         <th>
-            Потвърденто чрез GSM
+            Потвърдено чрез GSM
         </th>
         @if (User.IsInRole("Admin"))
         {
@@ -63,7 +63,7 @@ else
             <td>
                 @if (item.Status.ToLower() == "pending")
                 {
-                    <p class="alert alert-dismissable alert-warning">Очаква отгожор</p>
+                    <p class="alert alert-dismissable alert-warning">Очаква отговор</p>
                 }
                 else if (item.Status.ToLower() == "rejected")
                 {
