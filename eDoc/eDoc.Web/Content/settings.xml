@@ -6,7 +6,7 @@
   <fromEmail>admin@mightymouse.com</fromEmail>
   <mailgunAccount>app4756.mailgun.org</mailgunAccount>
   <mailgunKey>key-1g8ild93unp4dcswe0pgt4ce62ar24z0</mailgunKey>
-  <validateSms></validateSms>
-  <validateToken></validateToken>
-  <validateEmail></validateEmail>
+  <validateSms>true</validateSms>
+  <validateToken>true</validateToken>
+  <validateEmail>true</validateEmail>
 </settings>

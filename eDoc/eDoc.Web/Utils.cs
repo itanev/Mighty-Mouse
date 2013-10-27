@@ -10,9 +10,22 @@ namespace eDoc.Web
 {
     public class Utils
     {
-        public static string GetConfirmationCode(object seed, int length, bool useEnvTickCount = true)
+        public static int GetHash(string str)
         {
-            int seedInt = seed.GetHashCode();
+            int result = 0;
+            foreach (var ch in str)
+            {
+                unchecked
+                {
+                    result += ch;
+                    result <<= 2;
+                }
+            }
+            return result;
+        }
+        public static string GetConfirmationCode(string seed, int length, bool useEnvTickCount = true)
+        {
+            int seedInt = GetHash(seed);
             if (useEnvTickCount) seedInt += Environment.TickCount;
             var random = new Random(seedInt);
             var array = new byte[length];
@@ -22,16 +35,16 @@ namespace eDoc.Web
 
         public static byte[] GetTokenAssembly(string secret)
         {
-            var tree = SyntaxTree.ParseText(
-                string.Format(GetTokenConfirmationCodeSource, secret));
+            var source = GetTokenConfirmationCodeSource.Replace("####", secret);
+            var tree = SyntaxTree.ParseText(source);
             IEnumerable<Diagnostic> _;
             return TeamAzureDragon.CSharpCompiler.Compiler
                 .CompileToAssembly(tree, out _);
         }
 
-        public static string GetTokenConfirmationCode(string code)
+        public static string GetTokenConfirmationCode(string userName, string tokenInput)
         {
-            return GetConfirmationCode(code, code.Length, false);
+            return GetConfirmationCode(tokenInput + userName, tokenInput.Length, false);
         }
 
         public const string GetTokenConfirmationCodeSource =
@@ -39,19 +52,34 @@ namespace eDoc.Web
 
 public class Program
 {
-const string SECRET = ""{0}"";
+const string SECRET = ""####"";
 public static void Main(string[] args)
 {
     Console.WriteLine(""Enter token code:"");
-    string code = Console.ReadLine().Trim();
-    Console.WriteLine(GetConfirmationCode(code));
+    string tokenInput = Console.ReadLine().Trim();
+    Console.WriteLine(GetConfirmationCode(tokenInput));
 }
-public static string GetConfirmationCode(string code)
+public static int GetHash(string str)
 {
-    var random = new Random((code + SECRET).GetHashCode());
-    var array = new byte[code.Length];
+    int result = 0;
+    foreach (var ch in str)
+    {
+        unchecked
+        {
+            result += ch;
+            result <<= 2;
+        }
+    }
+    return result;
+}
+public static string GetConfirmationCode(string tokenInput)
+{
+    Console.WriteLine(tokenInput + SECRET);
+    Console.WriteLine(GetHash(tokenInput + SECRET));
+    var random = new Random(GetHash(tokenInput + SECRET));
+    var array = new byte[tokenInput.Length];
     random.NextBytes(array);
-    return Convert.ToBase64String(array).Substring(0, length);
+    return Convert.ToBase64String(array).Substring(0, tokenInput.Length);
 }
 }
 ";

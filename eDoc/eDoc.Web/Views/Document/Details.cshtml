@@ -48,7 +48,9 @@
         <dd>
             @Html.DisplayFor(model => model.Type)
         </dd>
-
+        <dd>
+            @Html.DisplayFor(model => model.TokenInput)
+        </dd>
         <dd>
             @Html.TextBox("phone-code", Model.PhoneValidated ? Model.PhoneCode : "", Model.PhoneValidated ? new { @readonly = "true" } : null)
         </dd>

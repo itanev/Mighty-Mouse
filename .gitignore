@@ -5,3 +5,5 @@ obj/
 *.mdf
 *.ldf
 packages/
+*.suo
+*.user

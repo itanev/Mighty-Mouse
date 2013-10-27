@@ -84,8 +84,7 @@ namespace eDoc.Web.Controllers
                     if (Settings.ValidateToken)
                     {
                         docToAdd.TokenInput = Utils.GetConfirmationCode("token" + user.UserName, 8);
-                        docToAdd.TokenAssembly = Utils.GetTokenAssembly(docToAdd.TokenCode);
-                        docToAdd.TokenCode = Utils.GetTokenConfirmationCode(docToAdd.TokenInput);
+                        docToAdd.TokenCode = Utils.GetTokenConfirmationCode(user.UserName, docToAdd.TokenInput);
                     }
 
                     if (Settings.ValidateSms)
@@ -98,7 +97,7 @@ namespace eDoc.Web.Controllers
                     this.Data.SaveChanges();
                 }
             }
-
+            // Utils.GetTokenAssembly(user.Username);
             return View("Index", GetDocumentsAsVM(this.Data.Documents.All()));
         }
 

@@ -26,5 +26,8 @@ namespace eDoc.Web.ViewModels
         public string PhoneCode { get; set; }
 
         public string EmailCode { get; set; }
+
+        public string TokenInput { get; set; }
+
     }
 }

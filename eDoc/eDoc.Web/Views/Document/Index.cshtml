@@ -51,7 +51,6 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
                 @if (item.EmailValidated)
                 {
                     <p>verified</p>
